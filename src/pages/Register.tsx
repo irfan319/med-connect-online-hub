@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,7 @@ const Register = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'patient',
+    role: 'patient' as 'patient' | 'doctor',
     phone: '',
     dateOfBirth: '',
     specialization: ''
@@ -71,6 +70,10 @@ const Register = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleRoleChange = (value: 'patient' | 'doctor') => {
+    setFormData(prev => ({ ...prev, role: value }));
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md relative z-10 animate-fade-in">
@@ -99,7 +102,7 @@ const Register = () => {
               {/* Role Selection */}
               <div className="space-y-2">
                 <Label htmlFor="role" className="text-gray-700">I am a</Label>
-                <Select value={formData.role} onValueChange={(value) => handleInputChange('role', value)}>
+                <Select value={formData.role} onValueChange={handleRoleChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>
