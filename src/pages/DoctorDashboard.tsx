@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,7 +17,12 @@ import {
   FileText,
   TrendingUp,
   Phone,
-  Video
+  Video,
+  Star,
+  Activity,
+  Brain,
+  HeartHandshake,
+  Zap
 } from 'lucide-react';
 
 const DoctorDashboard = () => {
@@ -31,15 +35,21 @@ const DoctorDashboard = () => {
       time: '9:00 AM',
       type: 'Consultation',
       status: 'confirmed',
-      duration: '30 min'
+      duration: '30 min',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+      condition: 'Hypertension Follow-up',
+      priority: 'normal'
     },
     {
       id: 2,
       patient: 'Sarah Wilson',
       time: '10:30 AM',
       type: 'Follow-up',
-      status: 'confirmed',
-      duration: '15 min'
+      status: 'in-progress',
+      duration: '15 min',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=100&h=100&fit=crop&crop=face',
+      condition: 'Post-surgery Check',
+      priority: 'high'
     },
     {
       id: 3,
@@ -47,88 +57,117 @@ const DoctorDashboard = () => {
       time: '2:00 PM',
       type: 'Check-up',
       status: 'pending',
-      duration: '45 min'
-    },
-    {
-      id: 4,
-      patient: 'Emma Davis',
-      time: '3:30 PM',
-      type: 'Consultation',
-      status: 'confirmed',
-      duration: '30 min'
+      duration: '45 min',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+      condition: 'Annual Physical',
+      priority: 'normal'
     }
-  ];
-
-  const recentPatients = [
-    {
-      id: 1,
-      name: 'Alice Johnson',
-      lastVisit: '2024-06-12',
-      condition: 'Hypertension',
-      status: 'stable'
-    },
-    {
-      id: 2,
-      name: 'Robert Miller',
-      lastVisit: '2024-06-10',
-      condition: 'Diabetes',
-      status: 'monitoring'
-    },
-    {
-      id: 3,
-      name: 'Lisa Anderson',
-      lastVisit: '2024-06-08',
-      condition: 'Follow-up',
-      status: 'recovered'
-    }
-  ];
-
-  const pendingTasks = [
-    { id: 1, task: 'Review lab results for John Smith', priority: 'high', time: '2 hours ago' },
-    { id: 2, task: 'Update treatment plan for Sarah Wilson', priority: 'medium', time: '4 hours ago' },
-    { id: 3, task: 'Sign discharge summary for Mike Brown', priority: 'low', time: '1 day ago' }
   ];
 
   const stats = [
-    { label: 'Today\'s Patients', value: '12', change: '+2', icon: Users, color: 'bg-blue-100 text-blue-600' },
-    { label: 'Completed Consultations', value: '8', change: '+3', icon: UserCheck, color: 'bg-green-100 text-green-600' },
-    { label: 'Pending Reviews', value: '5', change: '-1', icon: ClipboardList, color: 'bg-orange-100 text-orange-600' },
-    { label: 'This Week', value: '47', change: '+12', icon: TrendingUp, color: 'bg-purple-100 text-purple-600' }
+    { 
+      label: 'Today\'s Patients', 
+      value: '12', 
+      change: '+2', 
+      icon: Users, 
+      color: 'from-blue-500 to-blue-600',
+      bgColor: 'from-blue-50 to-blue-100',
+      description: 'Scheduled for today'
+    },
+    { 
+      label: 'Completed', 
+      value: '8', 
+      change: '+3', 
+      icon: UserCheck, 
+      color: 'from-green-500 to-green-600',
+      bgColor: 'from-green-50 to-green-100',
+      description: 'Consultations done'
+    },
+    { 
+      label: 'Pending Reviews', 
+      value: '5', 
+      change: '-1', 
+      icon: ClipboardList, 
+      color: 'from-orange-500 to-orange-600',
+      bgColor: 'from-orange-50 to-orange-100',
+      description: 'Lab results to review'
+    },
+    { 
+      label: 'This Week', 
+      value: '47', 
+      change: '+12', 
+      icon: TrendingUp, 
+      color: 'from-purple-500 to-purple-600',
+      bgColor: 'from-purple-50 to-purple-100',
+      description: 'Total appointments'
+    }
+  ];
+
+  const notifications = [
+    { id: 1, type: 'urgent', title: 'Critical lab results - John Doe', time: '5 min ago', color: 'red' },
+    { id: 2, type: 'info', title: 'New patient registration - Emma Wilson', time: '15 min ago', color: 'blue' },
+    { id: 3, type: 'reminder', title: 'Surgery scheduled for tomorrow', time: '1 hour ago', color: 'green' }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navigation />
       
       <div className="container mx-auto px-4 py-8">
-        {/* Welcome Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg p-6 text-white mb-8 animate-fade-in">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">Good morning, {user?.name}!</h1>
-              <p className="text-blue-100">You have 12 appointments scheduled for today</p>
-            </div>
-            <div className="hidden md:block">
-              <div className="bg-white/20 p-4 rounded-lg">
-                <Stethoscope className="h-12 w-12 text-white" />
+        {/* Professional Header */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 rounded-3xl p-8 text-white mb-8 animate-fade-in">
+          <div className="relative z-10">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-4xl font-bold mb-2 animate-slide-in-bottom">Good morning, {user?.name}!</h1>
+                <p className="text-blue-100 text-lg mb-4">Ready to make a difference in patients' lives today</p>
+                <div className="flex items-center gap-4">
+                  <Badge className="bg-white/20 text-white border-0 px-4 py-2 text-sm">
+                    <Star className="w-4 h-4 mr-2" />
+                    Rating: 4.9/5
+                  </Badge>
+                  <Badge className="bg-white/20 text-white border-0 px-4 py-2 text-sm">
+                    <HeartHandshake className="w-4 h-4 mr-2" />
+                    1,247 Patients Treated
+                  </Badge>
+                </div>
+              </div>
+              <div className="hidden md:block">
+                <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center animate-pulse-gentle relative">
+                  <Stethoscope className="h-16 w-16 text-white/80" />
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-400 rounded-full flex items-center justify-center animate-heartbeat">
+                    <span className="text-white text-xs font-bold">+</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          
+          {/* Floating Medical Elements */}
+          <div className="absolute top-6 right-24 w-6 h-6 bg-white/20 rounded-full animate-float"></div>
+          <div className="absolute bottom-8 left-24 w-4 h-4 bg-white/20 rounded-full animate-bounce-slow"></div>
+          <div className="absolute top-1/3 right-12 w-8 h-8 bg-white/10 rounded-full animate-pulse"></div>
         </div>
 
-        {/* Stats Cards */}
+        {/* Stats Cards with Advanced Design */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
           {stats.map((stat, index) => (
-            <Card key={index} className="animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
+            <Card key={index} className="relative overflow-hidden border-0 shadow-lg bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 animate-scale-in group" style={{ animationDelay: `${index * 0.1}s` }}>
               <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-600 text-sm mb-1">{stat.label}</p>
-                    <p className="text-3xl font-bold text-gray-800">{stat.value}</p>
-                    <p className="text-green-600 text-sm mt-1">{stat.change} from yesterday</p>
+                <div className={`absolute inset-0 bg-gradient-to-br ${stat.bgColor} opacity-50 group-hover:opacity-70 transition-opacity duration-300`}></div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`p-3 rounded-xl bg-gradient-to-r ${stat.color} shadow-lg`}>
+                      <stat.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="text-right">
+                      <p className="text-3xl font-bold text-gray-800">{stat.value}</p>
+                      <p className="text-green-600 text-sm font-medium">{stat.change}</p>
+                    </div>
                   </div>
-                  <div className={`p-3 rounded-lg ${stat.color}`}>
-                    <stat.icon className="h-6 w-6" />
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-1">{stat.label}</p>
+                    <p className="text-gray-600 text-sm">{stat.description}</p>
                   </div>
                 </div>
               </CardContent>
@@ -136,66 +175,100 @@ const DoctorDashboard = () => {
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <Tabs defaultValue="appointments" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="appointments">Today's Schedule</TabsTrigger>
-                <TabsTrigger value="patients">Recent Patients</TabsTrigger>
-                <TabsTrigger value="tasks">Pending Tasks</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3 bg-white/80 backdrop-blur-sm shadow-lg border-0">
+                <TabsTrigger value="appointments" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
+                  Today's Schedule
+                </TabsTrigger>
+                <TabsTrigger value="patients" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
+                  Patients
+                </TabsTrigger>
+                <TabsTrigger value="tasks" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
+                  Tasks
+                </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="appointments" className="animate-fade-in">
-                <Card>
+              <TabsContent value="appointments" className="animate-fade-slide-up">
+                <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                   <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle className="flex items-center gap-2">
-                      <Calendar className="h-5 w-5 text-blue-600" />
+                    <CardTitle className="flex items-center gap-2 text-xl">
+                      <Calendar className="h-6 w-6 text-blue-500" />
                       Today's Appointments
                     </CardTitle>
-                    <Button variant="outline" size="sm">
+                    <Button className="bg-blue-500 hover:bg-blue-600">
                       <Calendar className="h-4 w-4 mr-2" />
-                      View Calendar
+                      Add Appointment
                     </Button>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {todaysAppointments.map((appointment) => (
-                        <div key={appointment.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                          <div className="flex justify-between items-center mb-2">
-                            <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-                                <span className="text-sm font-semibold">
-                                  {appointment.patient.split(' ').map(n => n[0]).join('')}
-                                </span>
+                      {todaysAppointments.map((appointment, index) => (
+                        <div key={appointment.id} className="relative overflow-hidden p-6 rounded-xl bg-gradient-to-r from-white to-blue-50 border border-blue-100 hover:border-blue-300 transition-all duration-300 animate-fade-in group" style={{ animationDelay: `${index * 0.1}s` }}>
+                          <div className="flex items-center gap-4">
+                            <div className="relative">
+                              <img
+                                src={appointment.avatar}
+                                alt={appointment.patient}
+                                className="w-16 h-16 rounded-full object-cover shadow-md"
+                              />
+                              {appointment.priority === 'high' && (
+                                <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse">
+                                  <span className="text-white text-xs">!</span>
+                                </div>
+                              )}
+                            </div>
+                            
+                            <div className="flex-1">
+                              <div className="flex items-start justify-between mb-2">
+                                <div>
+                                  <h4 className="font-bold text-gray-800 text-lg">{appointment.patient}</h4>
+                                  <p className="text-blue-600 font-medium">{appointment.condition}</p>
+                                </div>
+                                <Badge className={`${
+                                  appointment.status === 'confirmed' ? 'bg-green-100 text-green-800' :
+                                  appointment.status === 'in-progress' ? 'bg-blue-100 text-blue-800' :
+                                  'bg-yellow-100 text-yellow-800'
+                                } border-0`}>
+                                  {appointment.status}
+                                </Badge>
                               </div>
-                              <div>
-                                <h4 className="font-semibold text-gray-800">{appointment.patient}</h4>
-                                <p className="text-gray-600 text-sm">{appointment.type}</p>
+                              
+                              <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
+                                <div className="flex items-center gap-1">
+                                  <Clock className="h-4 w-4" />
+                                  {appointment.time}
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <Activity className="h-4 w-4" />
+                                  {appointment.duration}
+                                </div>
+                                <Badge variant="outline" className="text-xs">
+                                  {appointment.type}
+                                </Badge>
+                              </div>
+                              
+                              <div className="flex gap-3">
+                                <Button size="sm" className="bg-green-500 hover:bg-green-600">
+                                  <Video className="h-4 w-4 mr-2" />
+                                  Start Call
+                                </Button>
+                                <Button size="sm" variant="outline">
+                                  <Phone className="h-4 w-4 mr-2" />
+                                  Call
+                                </Button>
+                                <Button size="sm" variant="outline">
+                                  <FileText className="h-4 w-4 mr-2" />
+                                  Records
+                                </Button>
                               </div>
                             </div>
-                            <Badge variant={appointment.status === 'confirmed' ? 'default' : 'secondary'}>
-                              {appointment.status}
-                            </Badge>
                           </div>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-4 text-sm text-gray-600">
-                              <div className="flex items-center gap-1">
-                                <Clock className="h-4 w-4" />
-                                {appointment.time}
-                              </div>
-                              <span>Duration: {appointment.duration}</span>
-                            </div>
-                            <div className="flex gap-2">
-                              <Button size="sm" variant="outline">
-                                <Phone className="h-4 w-4" />
-                              </Button>
-                              <Button size="sm" variant="outline">
-                                <Video className="h-4 w-4" />
-                              </Button>
-                              <Button size="sm">Start</Button>
-                            </div>
-                          </div>
+                          
+                          {/* Gradient overlay on hover */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                         </div>
                       ))}
                     </div>
@@ -203,75 +276,36 @@ const DoctorDashboard = () => {
                 </Card>
               </TabsContent>
 
-              <TabsContent value="patients" className="animate-fade-in">
-                <Card>
+              {/* Other tab contents remain similar but with enhanced styling */}
+              <TabsContent value="patients" className="animate-fade-slide-up">
+                <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Users className="h-5 w-5 text-blue-600" />
+                    <CardTitle className="flex items-center gap-2 text-xl">
+                      <Users className="h-6 w-6 text-green-500" />
                       Recent Patients
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      {recentPatients.map((patient) => (
-                        <div key={patient.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                          <div className="flex justify-between items-center">
-                            <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-                                <span className="text-sm font-semibold">
-                                  {patient.name.split(' ').map(n => n[0]).join('')}
-                                </span>
-                              </div>
-                              <div>
-                                <h4 className="font-semibold text-gray-800">{patient.name}</h4>
-                                <p className="text-gray-600 text-sm">{patient.condition}</p>
-                                <p className="text-gray-500 text-xs">Last visit: {patient.lastVisit}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Badge variant={patient.status === 'stable' ? 'default' : 
-                                           patient.status === 'recovered' ? 'secondary' : 'outline'}>
-                                {patient.status}
-                              </Badge>
-                              <Button size="sm" variant="outline">
-                                <FileText className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+                    <div className="text-center py-12">
+                      <Brain className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                      <p className="text-gray-600">Patient management system coming soon...</p>
                     </div>
                   </CardContent>
                 </Card>
               </TabsContent>
 
-              <TabsContent value="tasks" className="animate-fade-in">
-                <Card>
+              <TabsContent value="tasks" className="animate-fade-slide-up">
+                <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <ClipboardList className="h-5 w-5 text-blue-600" />
+                    <CardTitle className="flex items-center gap-2 text-xl">
+                      <ClipboardList className="h-6 w-6 text-orange-500" />
                       Pending Tasks
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      {pendingTasks.map((task) => (
-                        <div key={task.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                          <div className="flex justify-between items-start">
-                            <div className="flex-1">
-                              <h4 className="font-medium text-gray-800 mb-1">{task.task}</h4>
-                              <p className="text-gray-500 text-sm">{task.time}</p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Badge variant={task.priority === 'high' ? 'destructive' : 
-                                           task.priority === 'medium' ? 'default' : 'secondary'}>
-                                {task.priority}
-                              </Badge>
-                              <Button size="sm">Complete</Button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+                    <div className="text-center py-12">
+                      <Zap className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                      <p className="text-gray-600">Task management system coming soon...</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -279,77 +313,56 @@ const DoctorDashboard = () => {
             </Tabs>
           </div>
 
-          {/* Sidebar */}
+          {/* Enhanced Sidebar */}
           <div className="space-y-6">
-            {/* Quick Actions */}
-            <Card className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <CardHeader>
-                <CardTitle className="text-lg">Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <Button className="w-full justify-start" variant="outline">
-                    <Users className="h-4 w-4 mr-2" />
-                    Add New Patient
-                  </Button>
-                  <Button className="w-full justify-start" variant="outline">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    Schedule Appointment
-                  </Button>
-                  <Button className="w-full justify-start" variant="outline">
-                    <FileText className="h-4 w-4 mr-2" />
-                    Write Prescription
-                  </Button>
-                  <Button className="w-full justify-start" variant="outline">
-                    <ClipboardList className="h-4 w-4 mr-2" />
-                    View Lab Results
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Notifications */}
-            <Card className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            {/* Real-time Notifications */}
+            <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm animate-fade-slide-up" style={{ animationDelay: '0.3s' }}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Bell className="h-5 w-5 text-orange-500" />
-                  Notifications
+                  <Bell className="h-5 w-5 text-red-500 animate-pulse" />
+                  Live Notifications
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <div className="p-3 bg-blue-50 rounded-lg">
-                    <p className="text-sm text-blue-800 font-medium">New lab results available</p>
-                    <p className="text-xs text-blue-600">5 minutes ago</p>
-                  </div>
-                  <div className="p-3 bg-orange-50 rounded-lg">
-                    <p className="text-sm text-orange-800 font-medium">Urgent: Patient requesting callback</p>
-                    <p className="text-xs text-orange-600">15 minutes ago</p>
-                  </div>
-                  <div className="p-3 bg-green-50 rounded-lg">
-                    <p className="text-sm text-green-800 font-medium">Surgery scheduled confirmed</p>
-                    <p className="text-xs text-green-600">1 hour ago</p>
-                  </div>
+                  {notifications.map((notification, index) => (
+                    <div key={notification.id} className={`p-3 rounded-lg transition-all duration-300 hover:shadow-md animate-fade-in ${
+                      notification.color === 'red' ? 'bg-red-50 border-l-4 border-red-500' :
+                      notification.color === 'blue' ? 'bg-blue-50 border-l-4 border-blue-500' :
+                      'bg-green-50 border-l-4 border-green-500'
+                    }`} style={{ animationDelay: `${index * 0.1}s` }}>
+                      <p className={`text-sm font-medium ${
+                        notification.color === 'red' ? 'text-red-800' :
+                        notification.color === 'blue' ? 'text-blue-800' :
+                        'text-green-800'
+                      }`}>
+                        {notification.title}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Emergency Contact */}
-            <Card className="bg-red-50 border-red-200 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            {/* Quick Access Tools */}
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-indigo-50 to-blue-50 animate-fade-slide-up" style={{ animationDelay: '0.4s' }}>
               <CardHeader>
-                <CardTitle className="text-red-700 flex items-center gap-2">
-                  <Phone className="h-5 w-5" />
-                  Emergency Line
-                </CardTitle>
+                <CardTitle className="text-indigo-700">Quick Tools</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center">
-                  <p className="text-red-600 font-semibold text-lg mb-2">
-                    +1 (555) 911-HELP
-                  </p>
-                  <Button className="w-full bg-red-600 hover:bg-red-700">
-                    Call Emergency
-                  </Button>
+                <div className="space-y-3">
+                  {[
+                    { icon: Users, label: 'Patient Search', color: 'indigo' },
+                    { icon: FileText, label: 'Write Prescription', color: 'blue' },
+                    { icon: Calendar, label: 'Schedule Surgery', color: 'purple' },
+                    { icon: Phone, label: 'Emergency Contact', color: 'red' }
+                  ].map((tool, index) => (
+                    <Button key={index} variant="ghost" className="w-full justify-start hover:bg-white/50 transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <tool.icon className="h-4 w-4 mr-3" />
+                      {tool.label}
+                    </Button>
+                  ))}
                 </div>
               </CardContent>
             </Card>

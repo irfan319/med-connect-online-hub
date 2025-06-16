@@ -19,7 +19,11 @@ import {
   MapPin,
   Activity,
   Pill,
-  Download
+  Download,
+  TrendingUp,
+  Shield,
+  Zap,
+  Plus
 } from 'lucide-react';
 
 const PatientDashboard = () => {
@@ -33,7 +37,8 @@ const PatientDashboard = () => {
       date: '2024-06-15',
       time: '10:00 AM',
       type: 'Consultation',
-      status: 'confirmed'
+      status: 'confirmed',
+      avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face'
     },
     {
       id: 2,
@@ -42,174 +47,165 @@ const PatientDashboard = () => {
       date: '2024-06-20',
       time: '2:30 PM',
       type: 'Follow-up',
-      status: 'pending'
-    }
-  ];
-
-  const recentResults = [
-    {
-      id: 1,
-      test: 'Blood Test Panel',
-      date: '2024-06-10',
-      status: 'completed',
-      doctor: 'Dr. Sarah Johnson'
-    },
-    {
-      id: 2,
-      test: 'X-Ray Chest',
-      date: '2024-06-08',
-      status: 'completed',
-      doctor: 'Dr. Michael Chen'
-    }
-  ];
-
-  const medications = [
-    {
-      id: 1,
-      name: 'Lisinopril',
-      dosage: '10mg',
-      frequency: 'Once daily',
-      remaining: 15,
-      total: 30
-    },
-    {
-      id: 2,
-      name: 'Metformin',
-      dosage: '500mg',
-      frequency: 'Twice daily',
-      remaining: 45,
-      total: 60
+      status: 'pending',
+      avatar: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=100&h=100&fit=crop&crop=face'
     }
   ];
 
   const healthMetrics = [
-    { label: 'Blood Pressure', value: '120/80', status: 'normal', color: 'text-green-600' },
-    { label: 'Heart Rate', value: '72 bpm', status: 'normal', color: 'text-green-600' },
-    { label: 'BMI', value: '24.5', status: 'normal', color: 'text-green-600' },
-    { label: 'Cholesterol', value: '180 mg/dL', status: 'normal', color: 'text-green-600' }
+    { label: 'Heart Rate', value: '72', unit: 'bpm', status: 'normal', color: 'text-green-500', progress: 85, icon: Heart },
+    { label: 'Blood Pressure', value: '120/80', unit: 'mmHg', status: 'normal', color: 'text-blue-500', progress: 90, icon: Activity },
+    { label: 'Temperature', value: '98.6', unit: '°F', status: 'normal', color: 'text-orange-500', progress: 95, icon: TrendingUp },
+    { label: 'Oxygen Level', value: '98', unit: '%', status: 'excellent', color: 'text-cyan-500', progress: 98, icon: Zap }
+  ];
+
+  const recentActivities = [
+    { id: 1, type: 'appointment', title: 'Completed checkup with Dr. Johnson', time: '2 hours ago', icon: Calendar },
+    { id: 2, type: 'medication', title: 'Took morning medication', time: '4 hours ago', icon: Pill },
+    { id: 3, type: 'test', title: 'Blood test results available', time: '1 day ago', icon: FileText },
+    { id: 4, type: 'appointment', title: 'Scheduled follow-up appointment', time: '2 days ago', icon: Clock }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
       <Navigation />
       
       <div className="container mx-auto px-4 py-8">
-        {/* Welcome Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-6 text-white mb-8 animate-fade-in">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">Welcome back, {user?.name}!</h1>
-              <p className="text-blue-100">Here's your health overview for today</p>
-            </div>
-            <div className="hidden md:block">
-              <div className="bg-white/20 p-4 rounded-lg">
-                <User className="h-12 w-12 text-white" />
+        {/* Welcome Header with Floating Animation */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 rounded-3xl p-8 text-white mb-8 animate-fade-in">
+          <div className="relative z-10">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-4xl font-bold mb-2 animate-slide-in-bottom">Welcome back, {user?.name}!</h1>
+                <p className="text-cyan-100 text-lg">Your health journey continues today</p>
+                <div className="flex items-center gap-4 mt-4">
+                  <Badge className="bg-white/20 text-white border-0 px-4 py-2">
+                    <Shield className="w-4 h-4 mr-2" />
+                    Health Score: 94%
+                  </Badge>
+                  <Badge className="bg-white/20 text-white border-0 px-4 py-2">
+                    <TrendingUp className="w-4 h-4 mr-2" />
+                    Improving
+                  </Badge>
+                </div>
+              </div>
+              <div className="hidden md:block">
+                <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center animate-pulse-gentle">
+                  <User className="h-16 w-16 text-white/80" />
+                </div>
               </div>
             </div>
           </div>
+          
+          {/* Floating Background Elements */}
+          <div className="absolute top-4 right-20 w-6 h-6 bg-white/20 rounded-full animate-float"></div>
+          <div className="absolute bottom-8 left-20 w-4 h-4 bg-white/20 rounded-full animate-bounce-slow"></div>
+          <div className="absolute top-1/2 right-8 w-8 h-8 bg-white/10 rounded-full animate-pulse"></div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Quick Actions */}
-            <Card className="animate-scale-in">
+        <div className="grid lg:grid-cols-4 gap-8">
+          {/* Main Content - 3 columns */}
+          <div className="lg:col-span-3 space-y-8">
+            {/* Health Metrics Cards */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {healthMetrics.map((metric, index) => (
+                <Card key={index} className="relative overflow-hidden border-0 shadow-lg bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 animate-scale-in group" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={`p-3 rounded-xl bg-gradient-to-r ${metric.color.includes('green') ? 'from-green-100 to-green-200' : 
+                                    metric.color.includes('blue') ? 'from-blue-100 to-blue-200' :
+                                    metric.color.includes('orange') ? 'from-orange-100 to-orange-200' : 'from-cyan-100 to-cyan-200'}`}>
+                        <metric.icon className={`w-6 h-6 ${metric.color}`} />
+                      </div>
+                      <Badge className={`${metric.status === 'excellent' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'} border-0`}>
+                        {metric.status}
+                      </Badge>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium text-gray-600">{metric.label}</p>
+                      <p className="text-2xl font-bold text-gray-800">
+                        {metric.value}
+                        <span className="text-sm text-gray-500 ml-1">{metric.unit}</span>
+                      </p>
+                      <Progress value={metric.progress} className="h-2" />
+                    </div>
+                  </CardContent>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/5 group-hover:to-white/10 transition-all duration-300"></div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Quick Actions with Ripple Effect */}
+            <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm animate-fade-slide-up">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Activity className="h-5 w-5 text-blue-600" />
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <Zap className="h-6 w-6 text-cyan-500" />
                   Quick Actions
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid md:grid-cols-3 gap-4">
-                  <Link to="/appointments">
-                    <Button className="w-full h-16 bg-blue-600 hover:bg-blue-700">
-                      <div className="text-center">
-                        <Calendar className="h-6 w-6 mx-auto mb-1" />
-                        <div className="text-sm">Book Appointment</div>
-                      </div>
-                    </Button>
-                  </Link>
-                  <Button variant="outline" className="w-full h-16">
-                    <div className="text-center">
-                      <FileText className="h-6 w-6 mx-auto mb-1" />
-                      <div className="text-sm">View Records</div>
-                    </div>
-                  </Button>
-                  <Button variant="outline" className="w-full h-16">
-                    <div className="text-center">
-                      <Phone className="h-6 w-6 mx-auto mb-1" />
-                      <div className="text-sm">Contact Doctor</div>
-                    </div>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Upcoming Appointments */}
-            <Card className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-blue-600" />
-                  Upcoming Appointments
-                </CardTitle>
-                <Link to="/appointments">
-                  <Button variant="outline" size="sm">View All</Button>
-                </Link>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {upcomingAppointments.map((appointment) => (
-                    <div key={appointment.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h4 className="font-semibold text-gray-800">{appointment.doctor}</h4>
-                          <p className="text-gray-600">{appointment.specialty}</p>
+                <div className="grid md:grid-cols-4 gap-4">
+                  {[
+                    { icon: Calendar, label: 'Book Appointment', color: 'from-blue-500 to-blue-600', link: '/appointments' },
+                    { icon: FileText, label: 'View Records', color: 'from-green-500 to-green-600', link: '#' },
+                    { icon: Pill, label: 'Medications', color: 'from-purple-500 to-purple-600', link: '#' },
+                    { icon: Phone, label: 'Contact Doctor', color: 'from-orange-500 to-orange-600', link: '#' }
+                  ].map((action, index) => (
+                    <Link key={index} to={action.link}>
+                      <Button className={`w-full h-20 bg-gradient-to-r ${action.color} hover:shadow-lg hover:scale-105 transition-all duration-300 animate-scale-in group relative overflow-hidden`} style={{ animationDelay: `${index * 0.1}s` }}>
+                        <div className="flex flex-col items-center gap-2 relative z-10">
+                          <action.icon className="h-6 w-6" />
+                          <span className="text-sm font-medium">{action.label}</span>
                         </div>
-                        <Badge variant={appointment.status === 'confirmed' ? 'default' : 'secondary'}>
-                          {appointment.status}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-gray-600">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          {appointment.date}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
-                          {appointment.time}
-                        </div>
-                      </div>
-                    </div>
+                        <div className="absolute inset-0 bg-white/20 scale-0 group-hover:scale-100 rounded-full transition-transform duration-300 animate-ripple"></div>
+                      </Button>
+                    </Link>
                   ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Test Results */}
-            <Card className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            {/* Upcoming Appointments */}
+            <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm animate-fade-slide-up" style={{ animationDelay: '0.2s' }}>
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-blue-600" />
-                  Recent Test Results
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <Calendar className="h-6 w-6 text-blue-500" />
+                  Upcoming Appointments
                 </CardTitle>
-                <Button variant="outline" size="sm">View All</Button>
+                <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-600 hover:bg-cyan-50">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add New
+                </Button>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {recentResults.map((result) => (
-                    <div key={result.id} className="border rounded-lg p-4 flex justify-between items-center">
-                      <div>
-                        <h4 className="font-semibold text-gray-800">{result.test}</h4>
-                        <p className="text-gray-600">Dr. {result.doctor}</p>
-                        <p className="text-sm text-gray-500">{result.date}</p>
+                  {upcomingAppointments.map((appointment, index) => (
+                    <div key={appointment.id} className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-gray-50 to-blue-50 hover:from-blue-50 hover:to-cyan-50 transition-all duration-300 border border-gray-100 hover:border-cyan-200 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <img
+                        src={appointment.avatar}
+                        alt={appointment.doctor}
+                        className="w-14 h-14 rounded-full object-cover shadow-md"
+                      />
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-gray-800 text-lg">{appointment.doctor}</h4>
+                        <p className="text-cyan-600 font-medium">{appointment.specialty}</p>
+                        <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            {appointment.date}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            {appointment.time}
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Badge className="bg-green-100 text-green-800">
-                          {result.status}
+                      <div className="text-right">
+                        <Badge className={`${appointment.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'} border-0 mb-2`}>
+                          {appointment.status}
                         </Badge>
-                        <Button size="sm" variant="ghost">
-                          <Download className="h-4 w-4" />
+                        <Button size="sm" className="bg-cyan-500 hover:bg-cyan-600 block">
+                          Join Call
                         </Button>
                       </div>
                     </div>
@@ -219,63 +215,58 @@ const PatientDashboard = () => {
             </Card>
           </div>
 
-          {/* Sidebar */}
+          {/* Sidebar - 1 column */}
           <div className="space-y-6">
-            {/* Health Metrics */}
-            <Card className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            {/* Recent Activity */}
+            <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm animate-fade-slide-up" style={{ animationDelay: '0.3s' }}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Heart className="h-5 w-5 text-red-500" />
-                  Health Metrics
+                  <Activity className="h-5 w-5 text-purple-500" />
+                  Recent Activity
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {healthMetrics.map((metric, index) => (
-                    <div key={index} className="flex justify-between items-center">
-                      <span className="text-gray-600">{metric.label}</span>
-                      <span className={`font-semibold ${metric.color}`}>
-                        {metric.value}
-                      </span>
+                  {recentActivities.map((activity, index) => (
+                    <div key={activity.id} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <div className="p-2 rounded-lg bg-purple-100">
+                        <activity.icon className="w-4 h-4 text-purple-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-800">{activity.title}</p>
+                        <p className="text-xs text-gray-500">{activity.time}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Medications */}
-            <Card className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            {/* Health Tips */}
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-blue-50 animate-fade-slide-up" style={{ animationDelay: '0.4s' }}>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Pill className="h-5 w-5 text-orange-500" />
-                  Medications
+                <CardTitle className="flex items-center gap-2 text-green-700">
+                  <Heart className="h-5 w-5" />
+                  Daily Health Tip
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {medications.map((med) => (
-                    <div key={med.id} className="border rounded-lg p-3">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h4 className="font-semibold text-gray-800">{med.name}</h4>
-                          <p className="text-sm text-gray-600">{med.dosage} - {med.frequency}</p>
-                        </div>
-                      </div>
-                      <div className="mt-2">
-                        <div className="flex justify-between text-sm text-gray-600 mb-1">
-                          <span>Remaining</span>
-                          <span>{med.remaining}/{med.total} pills</span>
-                        </div>
-                        <Progress value={(med.remaining / med.total) * 100} className="h-2" />
-                      </div>
+                <div className="space-y-3">
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    "Remember to stay hydrated! Aim for 8 glasses of water daily to maintain optimal health."
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <span className="text-blue-600 text-xs font-bold">💡</span>
                     </div>
-                  ))}
+                    <span className="text-xs text-gray-600">Pro tip from Dr. Johnson</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Emergency Contact */}
-            <Card className="bg-red-50 border-red-200 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            <Card className="bg-gradient-to-br from-red-50 to-pink-50 border-red-200 shadow-lg animate-fade-slide-up" style={{ animationDelay: '0.5s' }}>
               <CardHeader>
                 <CardTitle className="text-red-700 flex items-center gap-2">
                   <Phone className="h-5 w-5" />
@@ -283,18 +274,17 @@ const PatientDashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center">
-                  <p className="text-red-600 font-semibold text-lg mb-2">
-                    +1 (555) 911-HELP
-                  </p>
-                  <p className="text-red-600 text-sm">
-                    Available 24/7 for medical emergencies
-                  </p>
-                  <Link to="/emergency">
-                    <Button className="w-full mt-3 bg-red-600 hover:bg-red-700">
-                      Emergency Services
-                    </Button>
-                  </Link>
+                <div className="text-center space-y-3">
+                  <div className="p-4 bg-red-100 rounded-xl">
+                    <p className="text-red-600 font-bold text-xl mb-1">
+                      +1 (555) 911-HELP
+                    </p>
+                    <p className="text-red-600 text-sm">24/7 Emergency Line</p>
+                  </div>
+                  <Button className="w-full bg-red-600 hover:bg-red-700 animate-pulse-gentle">
+                    <Phone className="w-4 h-4 mr-2" />
+                    Call Emergency
+                  </Button>
                 </div>
               </CardContent>
             </Card>
