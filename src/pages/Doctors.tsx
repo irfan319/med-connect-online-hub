@@ -82,12 +82,18 @@ const Doctors = () => {
       department: 'orthopedics',
       image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&crop=face',
       rating: 4.7,
+      reviews: 180,
       experience: '22+ years',
       education: 'MD, Mayo Clinic',
       location: 'Surgical Center',
       availability: 'Tue-Fri: 7AM-3PM',
       languages: ['English'],
-      specializations: ['Joint Replacement', 'Sports Medicine', 'Spine Surgery']
+      specializations: ['Joint Replacement', 'Sports Medicine', 'Spine Surgery'],
+      about: 'Dr. David Thompson is an experienced orthopedic surgeon specializing in joint replacement and sports medicine. He has performed over 2000 successful surgeries.',
+      achievements: ['Orthopedic Surgery Excellence Award', 'Sports Medicine Innovation', 'Medical Research Contributor'],
+      consultationFee: '$300',
+      phone: '+1 (555) 456-7890',
+      email: 'david.thompson@medicare.com'
     },
     {
       id: 5,
@@ -96,12 +102,18 @@ const Doctors = () => {
       department: 'ophthalmology',
       image: 'https://images.unsplash.com/photo-1594824375864-87435bfaad3d?w=400&h=400&fit=crop&crop=face',
       rating: 4.8,
+      reviews: 225,
       experience: '12+ years',
       education: 'MD, UCLA Medical School',
       location: 'Eye Care Center',
       availability: 'Mon-Wed-Fri: 9AM-5PM',
       languages: ['English', 'Mandarin', 'Korean'],
-      specializations: ['Cataract Surgery', 'Retinal Diseases', 'LASIK Surgery']
+      specializations: ['Cataract Surgery', 'Retinal Diseases', 'LASIK Surgery'],
+      about: 'Dr. Lisa Wang is a skilled ophthalmologist with expertise in advanced eye care and surgical procedures. She has helped thousands of patients improve their vision.',
+      achievements: ['Vision Care Excellence Award', 'LASIK Surgery Pioneer', 'Eye Care Research Leader'],
+      consultationFee: '$180',
+      phone: '+1 (555) 567-8901',
+      email: 'lisa.wang@medicare.com'
     },
     {
       id: 6,
@@ -110,12 +122,18 @@ const Doctors = () => {
       department: 'emergency',
       image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face',
       rating: 4.9,
+      reviews: 290,
       experience: '25+ years',
       education: 'MD, University of Pennsylvania',
       location: 'Emergency Department',
       availability: '24/7 Rotating Schedule',
       languages: ['English', 'Spanish'],
-      specializations: ['Trauma Care', 'Critical Care', 'Emergency Surgery']
+      specializations: ['Trauma Care', 'Critical Care', 'Emergency Surgery'],
+      about: 'Dr. Robert Martinez is a veteran emergency medicine physician with extensive experience in trauma and critical care. He has saved countless lives in emergency situations.',
+      achievements: ['Emergency Medicine Hero Award', 'Trauma Care Excellence', 'Life Saving Recognition'],
+      consultationFee: '$250',
+      phone: '+1 (555) 678-9012',
+      email: 'robert.martinez@medicare.com'
     }
   ];
 
@@ -156,7 +174,7 @@ const Doctors = () => {
             <div className="flex items-center justify-center gap-1 mb-4">
               <Star className="w-5 h-5 text-yellow-500 fill-current" />
               <span className="font-semibold">{doctor.rating}</span>
-              <span className="text-gray-600">({doctor.reviews} reviews)</span>
+              <span className="text-gray-600">({doctor.reviews || 0} reviews)</span>
             </div>
             <Badge className="bg-cyan-100 text-cyan-800 mb-4">{doctor.experience}</Badge>
           </div>
@@ -167,7 +185,7 @@ const Doctors = () => {
           {/* About */}
           <div>
             <h4 className="text-lg font-semibold mb-2 text-gray-800">About</h4>
-            <p className="text-gray-600 leading-relaxed">{doctor.about}</p>
+            <p className="text-gray-600 leading-relaxed">{doctor.about || 'Professional healthcare provider dedicated to patient care.'}</p>
           </div>
 
           {/* Contact Information */}
@@ -177,11 +195,11 @@ const Doctors = () => {
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-gray-600">
                   <Phone className="w-4 h-4" />
-                  <span>{doctor.phone}</span>
+                  <span>{doctor.phone || 'Available on request'}</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Mail className="w-4 h-4" />
-                  <span>{doctor.email}</span>
+                  <span>{doctor.email || 'Available on request'}</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <MapPin className="w-4 h-4" />
@@ -203,7 +221,7 @@ const Doctors = () => {
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Award className="w-4 h-4" />
-                  <span>Consultation Fee: {doctor.consultationFee}</span>
+                  <span>Consultation Fee: {doctor.consultationFee || 'Contact for pricing'}</span>
                 </div>
               </div>
             </div>
@@ -213,7 +231,7 @@ const Doctors = () => {
           <div>
             <h4 className="text-lg font-semibold mb-3 text-gray-800">Specializations</h4>
             <div className="flex flex-wrap gap-2">
-              {doctor.specializations.map((spec, index) => (
+              {(doctor.specializations || []).map((spec, index) => (
                 <Badge key={index} variant="outline" className="border-cyan-200 text-cyan-700">
                   {spec}
                 </Badge>
@@ -225,7 +243,7 @@ const Doctors = () => {
           <div>
             <h4 className="text-lg font-semibold mb-3 text-gray-800">Languages</h4>
             <div className="flex flex-wrap gap-2">
-              {doctor.languages.map((lang, index) => (
+              {(doctor.languages || []).map((lang, index) => (
                 <Badge key={index} className="bg-gray-100 text-gray-700">
                   {lang}
                 </Badge>
@@ -237,7 +255,7 @@ const Doctors = () => {
           <div>
             <h4 className="text-lg font-semibold mb-3 text-gray-800">Achievements</h4>
             <ul className="space-y-1">
-              {doctor.achievements.map((achievement, index) => (
+              {(doctor.achievements || []).map((achievement, index) => (
                 <li key={index} className="flex items-center gap-2 text-gray-600">
                   <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
                   {achievement}
