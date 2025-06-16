@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -195,6 +196,71 @@ export default {
 					'100%': {
 						transform: 'translateY(-50px)'
 					}
+				},
+				'shimmer': {
+					'0%': {
+						transform: 'translateX(-100%)'
+					},
+					'100%': {
+						transform: 'translateX(100%)'
+					}
+				},
+				'sparkle': {
+					'0%, 100%': {
+						opacity: '0',
+						transform: 'scale(0) rotate(0deg)'
+					},
+					'50%': {
+						opacity: '1',
+						transform: 'scale(1) rotate(180deg)'
+					}
+				},
+				'morph': {
+					'0%, 100%': {
+						borderRadius: '50%',
+						transform: 'rotate(0deg)'
+					},
+					'25%': {
+						borderRadius: '0%',
+						transform: 'rotate(90deg)'
+					},
+					'50%': {
+						borderRadius: '50%',
+						transform: 'rotate(180deg)'
+					},
+					'75%': {
+						borderRadius: '10%',
+						transform: 'rotate(270deg)'
+					}
+				},
+				'number-count': {
+					'0%': {
+						transform: 'translateY(20px)',
+						opacity: '0'
+					},
+					'100%': {
+						transform: 'translateY(0)',
+						opacity: '1'
+					}
+				},
+				'gentle-sway': {
+					'0%, 100%': {
+						transform: 'rotate(-2deg)'
+					},
+					'50%': {
+						transform: 'rotate(2deg)'
+					}
+				},
+				'text-wave': {
+					'0%, 100%': {
+						transform: 'translateY(0)'
+					},
+					'25%': {
+						transform: 'translateY(-5px)'
+					},
+					'75%': {
+						transform: 'translateY(5px)'
+					}
 				}
 			},
 			animation: {
@@ -210,7 +276,13 @@ export default {
 				'morph': 'morph-circle-to-square 0.3s ease-in-out',
 				'bounce-slow': 'bounce-slow 3s infinite',
 				'slide-in-bottom': 'slide-in-bottom 0.5s ease-out',
-				'parallax-slow': 'parallax-slow 10s linear infinite'
+				'parallax-slow': 'parallax-slow 10s linear infinite',
+				'shimmer': 'shimmer 2s ease-in-out infinite',
+				'sparkle': 'sparkle 3s ease-in-out infinite',
+				'morph-shape': 'morph 4s ease-in-out infinite',
+				'number-count': 'number-count 0.6s ease-out',
+				'gentle-sway': 'gentle-sway 4s ease-in-out infinite',
+				'text-wave': 'text-wave 2s ease-in-out infinite'
 			}
 		}
 	},

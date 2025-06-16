@@ -1,421 +1,346 @@
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Star, MapPin, Clock, Award, Search, Phone, Mail, Calendar, GraduationCap } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import { Star, MapPin, Clock, Award, Stethoscope, Heart, Brain, Users, Phone, Mail, Calendar, GraduationCap, Languages, Trophy, Sparkles } from 'lucide-react';
 
 const Doctors = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState('all');
+  const [selectedSpecialty, setSelectedSpecialty] = useState('All');
+
+  const departments = [
+    { id: 'all', name: 'All Departments', icon: Users, color: 'bg-gradient-to-r from-purple-500 to-pink-500' },
+    { id: 'cardiology', name: 'Cardiology', icon: Heart, color: 'bg-gradient-to-r from-red-500 to-pink-500' },
+    { id: 'neurology', name: 'Neurology', icon: Brain, color: 'bg-gradient-to-r from-blue-500 to-indigo-500' },
+    { id: 'general', name: 'General Medicine', icon: Stethoscope, color: 'bg-gradient-to-r from-green-500 to-emerald-500' },
+  ];
 
   const doctors = [
     {
       id: 1,
       name: 'Dr. Sarah Johnson',
-      specialty: 'Cardiologist',
+      specialty: 'Cardiology',
       department: 'cardiology',
       image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face',
       rating: 4.9,
-      reviews: 245,
-      experience: '20+ years',
-      education: 'MD, Harvard Medical School',
-      location: 'Main Campus - Building A',
-      availability: 'Mon-Fri: 9AM-5PM',
-      languages: ['English', 'Spanish'],
-      specializations: ['Interventional Cardiology', 'Heart Disease Prevention', 'Cardiac Surgery'],
-      about: 'Dr. Sarah Johnson is a renowned cardiologist with over 20 years of experience in treating complex heart conditions. She specializes in minimally invasive cardiac procedures and has published numerous research papers in leading medical journals.',
-      achievements: ['Best Doctor Award 2023', 'Published 50+ Research Papers', 'Pioneer in Minimally Invasive Surgery'],
-      consultationFee: '$200',
-      phone: '+1 (555) 123-4567',
-      email: 'sarah.johnson@medicare.com'
+      experience: '15 years',
+      location: 'Main Hospital - Floor 3',
+      availability: 'Available Today',
+      about: 'Dr. Sarah Johnson is a leading cardiologist with over 15 years of experience in treating complex heart conditions. She specializes in interventional cardiology and has performed over 2,000 successful procedures.',
+      education: ['MD from Harvard Medical School', 'Residency at Mayo Clinic', 'Fellowship in Interventional Cardiology'],
+      specializations: ['Interventional Cardiology', 'Heart Surgery', 'Cardiac Catheterization', 'Angioplasty'],
+      languages: ['English', 'Spanish', 'French'],
+      achievements: ['Best Cardiologist Award 2023', 'Published 50+ Research Papers', 'Speaker at International Conferences']
     },
     {
       id: 2,
-      name: 'Dr. Michael Chen',
-      specialty: 'Neurologist',
+      name: 'Dr. Emily Rodriguez',
+      specialty: 'Neurology',
       department: 'neurology',
-      image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face',
+      image: 'https://images.unsplash.com/photo-1594824475280-4e3191a8b2d8?w=400&h=400&fit=crop&crop=faces',
       rating: 4.8,
-      reviews: 198,
-      experience: '18+ years',
-      education: 'MD, Johns Hopkins University',
-      location: 'Main Campus - Building B',
-      availability: 'Mon-Thu: 8AM-4PM',
-      languages: ['English', 'Mandarin'],
-      specializations: ['Stroke Treatment', 'Epilepsy', 'Brain Tumors'],
-      about: 'Dr. Michael Chen is a distinguished neurologist known for his expertise in stroke treatment and brain surgery. He has successfully treated over 1000 patients with complex neurological conditions.',
-      achievements: ['Neurological Excellence Award 2022', 'International Speaker', 'Research Grant Recipient'],
-      consultationFee: '$250',
-      phone: '+1 (555) 234-5678',
-      email: 'michael.chen@medicare.com'
+      experience: '12 years',
+      location: 'Neurology Center - Floor 2',
+      availability: 'Available Tomorrow',
+      about: 'Dr. Emily Rodriguez is a renowned neurologist specializing in brain disorders and neurological conditions. She has extensive experience in treating stroke, epilepsy, and neurodegenerative diseases.',
+      education: ['MD from Johns Hopkins University', 'Neurology Residency at Cleveland Clinic', 'Fellowship in Stroke Medicine'],
+      specializations: ['Stroke Medicine', 'Epilepsy Treatment', 'Neurodegenerative Diseases', 'Brain Imaging'],
+      languages: ['English', 'Spanish', 'Portuguese'],
+      achievements: ['Excellence in Neurology Award 2022', 'Lead Researcher in Stroke Prevention', 'Featured in Medical Journals']
     },
     {
       id: 3,
-      name: 'Dr. Emily Rodriguez',
-      specialty: 'Pediatrician',
-      department: 'pediatrics',
-      image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=400&fit=crop&crop=face',
-      rating: 4.9,
-      reviews: 312,
-      experience: '15+ years',
-      education: 'MD, Stanford University',
-      location: 'Pediatric Wing',
-      availability: 'Mon-Sat: 8AM-6PM',
-      languages: ['English', 'Spanish', 'Portuguese'],
-      specializations: ['Child Development', 'Pediatric Surgery', 'Immunizations'],
-      about: 'Dr. Emily Rodriguez is a compassionate pediatrician dedicated to providing comprehensive care for children of all ages. She has a special interest in child development and preventive care.',
-      achievements: ['Pediatric Excellence Award 2023', 'Community Service Recognition', 'Child Advocacy Leader'],
-      consultationFee: '$150',
-      phone: '+1 (555) 345-6789',
-      email: 'emily.rodriguez@medicare.com'
-    },
-    {
-      id: 4,
-      name: 'Dr. David Thompson',
-      specialty: 'Orthopedic Surgeon',
-      department: 'orthopedics',
-      image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&crop=face',
-      rating: 4.7,
-      reviews: 180,
-      experience: '22+ years',
-      education: 'MD, Mayo Clinic',
-      location: 'Surgical Center',
-      availability: 'Tue-Fri: 7AM-3PM',
-      languages: ['English'],
-      specializations: ['Joint Replacement', 'Sports Medicine', 'Spine Surgery'],
-      about: 'Dr. David Thompson is an experienced orthopedic surgeon specializing in joint replacement and sports medicine. He has performed over 2000 successful surgeries.',
-      achievements: ['Orthopedic Surgery Excellence Award', 'Sports Medicine Innovation', 'Medical Research Contributor'],
-      consultationFee: '$300',
-      phone: '+1 (555) 456-7890',
-      email: 'david.thompson@medicare.com'
-    },
-    {
-      id: 5,
-      name: 'Dr. Lisa Wang',
-      specialty: 'Ophthalmologist',
-      department: 'ophthalmology',
-      image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&crop=face',
-      rating: 4.8,
-      reviews: 225,
-      experience: '12+ years',
-      education: 'MD, UCLA Medical School',
-      location: 'Eye Care Center',
-      availability: 'Mon-Wed-Fri: 9AM-5PM',
-      languages: ['English', 'Mandarin', 'Korean'],
-      specializations: ['Cataract Surgery', 'Retinal Diseases', 'LASIK Surgery'],
-      about: 'Dr. Lisa Wang is a skilled ophthalmologist with expertise in advanced eye care and surgical procedures. She has helped thousands of patients improve their vision.',
-      achievements: ['Vision Care Excellence Award', 'LASIK Surgery Pioneer', 'Eye Care Research Leader'],
-      consultationFee: '$180',
-      phone: '+1 (555) 567-8901',
-      email: 'lisa.wang@medicare.com'
-    },
-    {
-      id: 6,
-      name: 'Dr. Robert Martinez',
-      specialty: 'Emergency Medicine',
-      department: 'emergency',
+      name: 'Dr. Michael Chen',
+      specialty: 'General Medicine',
+      department: 'general',
       image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face',
-      rating: 4.9,
-      reviews: 290,
-      experience: '25+ years',
-      education: 'MD, University of Pennsylvania',
-      location: 'Emergency Department',
-      availability: '24/7 Rotating Schedule',
-      languages: ['English', 'Spanish'],
-      specializations: ['Trauma Care', 'Critical Care', 'Emergency Surgery'],
-      about: 'Dr. Robert Martinez is a veteran emergency medicine physician with extensive experience in trauma and critical care. He has saved countless lives in emergency situations.',
-      achievements: ['Emergency Medicine Hero Award', 'Trauma Care Excellence', 'Life Saving Recognition'],
-      consultationFee: '$250',
-      phone: '+1 (555) 678-9012',
-      email: 'robert.martinez@medicare.com'
+      rating: 4.7,
+      experience: '10 years',
+      location: 'General Medicine - Floor 1',
+      availability: 'Available Now',
+      about: 'Dr. Michael Chen is a dedicated general practitioner with a focus on preventive care and family medicine. He believes in building long-term relationships with his patients and providing comprehensive healthcare.',
+      education: ['MD from Stanford University', 'Family Medicine Residency', 'Board Certified in Internal Medicine'],
+      specializations: ['Preventive Care', 'Chronic Disease Management', 'Family Medicine', 'Health Screenings'],
+      languages: ['English', 'Mandarin', 'Cantonese'],
+      achievements: ['Outstanding Family Doctor Award', 'Community Health Champion', 'Patient Choice Award 2023']
     }
   ];
 
-  const departments = [
-    { value: 'all', label: 'All Departments', count: doctors.length },
-    { value: 'cardiology', label: 'Cardiology', count: doctors.filter(d => d.department === 'cardiology').length },
-    { value: 'neurology', label: 'Neurology', count: doctors.filter(d => d.department === 'neurology').length },
-    { value: 'pediatrics', label: 'Pediatrics', count: doctors.filter(d => d.department === 'pediatrics').length },
-    { value: 'orthopedics', label: 'Orthopedics', count: doctors.filter(d => d.department === 'orthopedics').length },
-    { value: 'ophthalmology', label: 'Ophthalmology', count: doctors.filter(d => d.department === 'ophthalmology').length },
-    { value: 'emergency', label: 'Emergency Medicine', count: doctors.filter(d => d.department === 'emergency').length }
-  ];
+  const filteredDoctors = selectedSpecialty === 'All' 
+    ? doctors 
+    : doctors.filter(doctor => doctor.department === selectedSpecialty.toLowerCase());
 
-  const filteredDoctors = doctors.filter(doctor => {
-    const matchesSearch = doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDepartment = selectedDepartment === 'all' || doctor.department === selectedDepartment;
-    return matchesSearch && matchesDepartment;
-  });
-
-  const DoctorDetailDialog = ({ doctor }: { doctor: typeof doctors[0] }) => (
-    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-      <DialogHeader>
-        <DialogTitle className="text-2xl text-center">Doctor Profile</DialogTitle>
-      </DialogHeader>
-      
-      <div className="grid md:grid-cols-3 gap-6">
-        {/* Doctor Image & Basic Info */}
-        <div className="md:col-span-1">
-          <div className="text-center">
-            <img
-              src={doctor.image}
-              alt={doctor.name}
-              className="w-48 h-48 rounded-full mx-auto mb-4 object-cover shadow-lg"
-            />
-            <h3 className="text-xl font-bold text-gray-800">{doctor.name}</h3>
-            <p className="text-cyan-600 font-semibold mb-2">{doctor.specialty}</p>
-            <div className="flex items-center justify-center gap-1 mb-4">
-              <Star className="w-5 h-5 text-yellow-500 fill-current" />
-              <span className="font-semibold">{doctor.rating}</span>
-              <span className="text-gray-600">({doctor.reviews || 0} reviews)</span>
+  const DoctorDetailDialog = ({ doctor }) => (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          View Profile
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white/95 backdrop-blur-lg border-0 shadow-2xl">
+        <DialogHeader>
+          <DialogTitle className="text-3xl font-bold text-gray-800 mb-2">{doctor.name}</DialogTitle>
+          <DialogDescription className="text-lg text-blue-600 font-semibold">
+            {doctor.specialty} Specialist
+          </DialogDescription>
+        </DialogHeader>
+        
+        <div className="grid md:grid-cols-3 gap-8 mt-6">
+          {/* Doctor Image and Basic Info */}
+          <div className="space-y-6">
+            <div className="relative group">
+              <img
+                src={doctor.image}
+                alt={doctor.name}
+                className="w-full h-80 object-cover rounded-2xl shadow-xl ring-4 ring-white group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full p-4 shadow-xl animate-pulse">
+                <Stethoscope className="h-8 w-8 text-white" />
+              </div>
             </div>
-            <Badge className="bg-cyan-100 text-cyan-800 mb-4">{doctor.experience}</Badge>
+            
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Star className="h-5 w-5 text-yellow-500" />
+                <span className="text-2xl font-bold text-gray-800">{doctor.rating}</span>
+                <span className="text-gray-600">Rating</span>
+              </div>
+              
+              <div className="flex items-center gap-2 text-gray-600">
+                <Clock className="h-5 w-5" />
+                <span>{doctor.experience} Experience</span>
+              </div>
+              
+              <div className="flex items-center gap-2 text-gray-600">
+                <MapPin className="h-5 w-5" />
+                <span>{doctor.location}</span>
+              </div>
+              
+              <Badge className="bg-green-100 text-green-800 text-sm px-3 py-1">
+                {doctor.availability}
+              </Badge>
+            </div>
           </div>
-        </div>
 
-        {/* Detailed Information */}
-        <div className="md:col-span-2 space-y-6">
-          {/* About */}
-          <div>
-            <h4 className="text-lg font-semibold mb-2 text-gray-800">About</h4>
-            <p className="text-gray-600 leading-relaxed">{doctor.about || 'Professional healthcare provider dedicated to patient care.'}</p>
-          </div>
+          {/* Detailed Information */}
+          <div className="md:col-span-2 space-y-8">
+            {/* About Section */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl">
+              <h3 className="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+                <Users className="h-6 w-6 text-blue-600" />
+                About Dr. {doctor.name.split(' ')[1]}
+              </h3>
+              <p className="text-gray-700 leading-relaxed">{doctor.about}</p>
+            </div>
 
-          {/* Contact Information */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <h4 className="text-lg font-semibold mb-3 text-gray-800">Contact Information</h4>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Phone className="w-4 h-4" />
-                  <span>{doctor.phone || 'Available on request'}</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Mail className="w-4 h-4" />
-                  <span>{doctor.email || 'Available on request'}</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <MapPin className="w-4 h-4" />
-                  <span>{doctor.location}</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Clock className="w-4 h-4" />
-                  <span>{doctor.availability}</span>
-                </div>
+            {/* Education */}
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-2xl">
+              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <GraduationCap className="h-6 w-6 text-purple-600" />
+                Education & Training
+              </h3>
+              <ul className="space-y-2">
+                {doctor.education.map((edu, index) => (
+                  <li key={index} className="flex items-center gap-3 text-gray-700">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                    {edu}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Specializations */}
+            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 p-6 rounded-2xl">
+              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <Award className="h-6 w-6 text-emerald-600" />
+                Specializations
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {(doctor.specializations || []).map((spec, index) => (
+                  <Badge key={index} className="bg-emerald-100 text-emerald-800 justify-start px-3 py-2">
+                    {spec}
+                  </Badge>
+                ))}
               </div>
             </div>
 
-            <div>
-              <h4 className="text-lg font-semibold mb-3 text-gray-800">Professional Details</h4>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-gray-600">
-                  <GraduationCap className="w-4 h-4" />
-                  <span>{doctor.education}</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Award className="w-4 h-4" />
-                  <span>Consultation Fee: {doctor.consultationFee || 'Contact for pricing'}</span>
+            {/* Languages & Achievements */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-2xl">
+                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <Languages className="h-6 w-6 text-orange-600" />
+                  Languages
+                </h3>
+                <div className="space-y-2">
+                  {(doctor.languages || []).map((lang, index) => (
+                    <Badge key={index} className="bg-orange-100 text-orange-800 mr-2 mb-2">
+                      {lang}
+                    </Badge>
+                  ))}
                 </div>
               </div>
+
+              <div className="bg-gradient-to-r from-yellow-50 to-amber-50 p-6 rounded-2xl">
+                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <Trophy className="h-6 w-6 text-yellow-600" />
+                  Achievements
+                </h3>
+                <ul className="space-y-2">
+                  {(doctor.achievements || []).map((achievement, index) => (
+                    <li key={index} className="flex items-center gap-3 text-gray-700 text-sm">
+                      <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
 
-          {/* Specializations */}
-          <div>
-            <h4 className="text-lg font-semibold mb-3 text-gray-800">Specializations</h4>
-            <div className="flex flex-wrap gap-2">
-              {(doctor.specializations || []).map((spec, index) => (
-                <Badge key={index} variant="outline" className="border-cyan-200 text-cyan-700">
-                  {spec}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
-          {/* Languages */}
-          <div>
-            <h4 className="text-lg font-semibold mb-3 text-gray-800">Languages</h4>
-            <div className="flex flex-wrap gap-2">
-              {(doctor.languages || []).map((lang, index) => (
-                <Badge key={index} className="bg-gray-100 text-gray-700">
-                  {lang}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
-          {/* Achievements */}
-          <div>
-            <h4 className="text-lg font-semibold mb-3 text-gray-800">Achievements</h4>
-            <ul className="space-y-1">
-              {(doctor.achievements || []).map((achievement, index) => (
-                <li key={index} className="flex items-center gap-2 text-gray-600">
-                  <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
-                  {achievement}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex gap-4 pt-4">
-            <Button asChild className="flex-1 bg-cyan-500 hover:bg-cyan-600">
-              <Link to="/appointments">
-                <Calendar className="w-4 h-4 mr-2" />
+            {/* Contact Actions */}
+            <div className="flex gap-4 pt-4">
+              <Button className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300">
+                <Calendar className="h-4 w-4 mr-2" />
                 Book Appointment
-              </Link>
-            </Button>
-            <Button variant="outline" className="flex-1">
-              <Phone className="w-4 h-4 mr-2" />
-              Call Now
-            </Button>
+              </Button>
+              <Button variant="outline" className="flex-1 border-green-300 text-green-700 hover:bg-green-50 shadow-md">
+                <Phone className="h-4 w-4 mr-2" />
+                Contact
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    </DialogContent>
+      </DialogContent>
+    </Dialog>
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 transition-all duration-500 ease-in-out">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-cyan-500 to-blue-600 py-20 animate-fade-in">
-        <div className="container mx-auto px-4 text-center text-white">
-          <h1 className="text-5xl font-bold mb-6 animate-pulse-gentle">Our Medical Experts</h1>
-          <p className="text-xl max-w-3xl mx-auto">
-            Meet our team of highly qualified and experienced doctors 
-            dedicated to providing exceptional healthcare services.
+      <div className="container mx-auto px-4 py-12">
+        {/* Header with Advanced Animation */}
+        <div className="text-center mb-16 animate-fade-in">
+          <div className="relative inline-block">
+            <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 animate-slide-in-bottom">
+              Meet Our Doctors
+            </h1>
+            <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full animate-bounce-slow opacity-70"></div>
+            <div className="absolute -bottom-2 -left-6 w-6 h-6 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full animate-float opacity-60"></div>
+          </div>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed animate-fade-slide-up" style={{ animationDelay: '0.2s' }}>
+            Our team of experienced healthcare professionals is dedicated to providing exceptional medical care with compassion and expertise.
           </p>
         </div>
-      </section>
 
-      {/* Search and Filter */}
-      <section className="py-8 bg-white shadow-sm">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="Search doctors by name or specialty..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 border-cyan-200 focus:border-cyan-500 transition-colors"
-              />
-            </div>
-            <div className="w-full md:w-auto min-w-64">
-              <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-                <SelectTrigger className="border-cyan-200 focus:border-cyan-500">
-                  <SelectValue placeholder="Select Department" />
-                </SelectTrigger>
-                <SelectContent>
-                  {departments.map((dept) => (
-                    <SelectItem key={dept.value} value={dept.value}>
-                      {dept.label} ({dept.count})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+        {/* Department Filter with Morphing Animation */}
+        <div className="flex flex-wrap justify-center gap-6 mb-12 animate-scale-in" style={{ animationDelay: '0.4s' }}>
+          {departments.map((dept, index) => (
+            <button
+              key={dept.id}
+              onClick={() => setSelectedSpecialty(dept.id === 'all' ? 'All' : dept.name)}
+              className={`group relative px-8 py-4 rounded-2xl font-semibold transition-all duration-500 transform hover:scale-110 hover:rotate-2 animate-fade-in ${
+                (selectedSpecialty === 'All' && dept.id === 'all') || selectedSpecialty === dept.name
+                  ? `${dept.color} text-white shadow-2xl scale-105`
+                  : 'bg-white/80 text-gray-700 hover:bg-white shadow-lg hover:shadow-xl backdrop-blur-sm'
+              }`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className="flex items-center gap-3">
+                <dept.icon className="h-6 w-6 group-hover:animate-pulse" />
+                {dept.name}
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent scale-0 group-hover:scale-100 rounded-2xl transition-transform duration-500 animate-shimmer"></div>
+            </button>
+          ))}
         </div>
-      </section>
 
-      {/* Doctors Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredDoctors.map((doctor, index) => (
-              <Card 
-                key={doctor.id} 
-                className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group animate-scale-in hover:scale-105"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="relative overflow-hidden">
+        {/* Doctors Grid with Staggered Animation */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredDoctors.map((doctor, index) => (
+            <Card key={doctor.id} className="group relative overflow-hidden border-0 shadow-2xl bg-white/90 backdrop-blur-lg hover:shadow-3xl transition-all duration-700 animate-scale-in transform hover:scale-105 hover:rotate-1" style={{ animationDelay: `${index * 0.2}s` }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
+              
+              <CardHeader className="relative z-10 pb-4">
+                <div className="relative mb-6 group-hover:scale-105 transition-transform duration-500">
                   <img
                     src={doctor.image}
                     alt={doctor.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-64 object-cover rounded-2xl shadow-xl ring-4 ring-white group-hover:ring-blue-200 transition-all duration-500"
                   />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center">
-                    <Star className="w-4 h-4 text-yellow-500 mr-1 fill-current" />
-                    <span className="text-sm font-semibold">{doctor.rating}</span>
+                  <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full p-3 shadow-xl animate-heartbeat group-hover:animate-pulse">
+                    <Stethoscope className="h-6 w-6 text-white" />
                   </div>
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-cyan-500 text-white">{doctor.department}</Badge>
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 text-yellow-500" />
+                      <span className="font-bold text-gray-800">{doctor.rating}</span>
+                    </div>
                   </div>
                 </div>
                 
-                <CardHeader>
-                  <CardTitle className="text-xl text-gray-800">{doctor.name}</CardTitle>
-                  <CardDescription className="text-cyan-600 font-semibol">
-                    {doctor.specialty}
-                  </CardDescription>
-                </CardHeader>
+                <CardTitle className="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                  {doctor.name}
+                </CardTitle>
+                <CardDescription className="text-lg font-semibold text-purple-600 mb-4">
+                  {doctor.specialty}
+                </CardDescription>
+              </CardHeader>
+              
+              <CardContent className="relative z-10 space-y-6">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 text-gray-600 group-hover:text-gray-700 transition-colors">
+                    <Clock className="h-5 w-5 text-blue-500" />
+                    <span className="font-medium">{doctor.experience} Experience</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-gray-600 group-hover:text-gray-700 transition-colors">
+                    <MapPin className="h-5 w-5 text-red-500" />
+                    <span className="font-medium">{doctor.location}</span>
+                  </div>
+                </div>
                 
-                <CardContent className="space-y-4">
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Award className="w-4 h-4 mr-2" />
-                    <span>{doctor.experience} • {doctor.education.split(',')[0]}</span>
-                  </div>
-                  
-                  <div className="flex items-center text-sm text-gray-600">
-                    <MapPin className="w-4 h-4 mr-2" />
-                    <span>{doctor.location}</span>
-                  </div>
-                  
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Clock className="w-4 h-4 mr-2" />
-                    <span>{doctor.availability}</span>
-                  </div>
-                  
-                  <div className="flex gap-2 pt-4">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="outline" className="flex-1 border-cyan-200 text-cyan-600 hover:bg-cyan-50">
-                          View Details
-                        </Button>
-                      </DialogTrigger>
-                      <DoctorDetailDialog doctor={doctor} />
-                    </Dialog>
-                    <Button asChild className="flex-1 bg-cyan-500 hover:bg-cyan-600">
-                      <Link to="/appointments">Book Now</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          
-          {filteredDoctors.length === 0 && (
-            <div className="text-center py-12 animate-fade-in">
-              <p className="text-xl text-gray-600">No doctors found matching your criteria.</p>
-              <p className="text-gray-500 mt-2">Try adjusting your search or filter options.</p>
-            </div>
-          )}
+                <Badge className="bg-green-100 text-green-800 px-3 py-1 text-sm font-semibold shadow-sm">
+                  {doctor.availability}
+                </Badge>
+                
+                <div className="flex gap-3 pt-4">
+                  <DoctorDetailDialog doctor={doctor} />
+                  <Button variant="outline" className="border-green-300 text-green-700 hover:bg-green-50 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                    <Phone className="h-4 w-4 mr-2" />
+                    Contact
+                  </Button>
+                </div>
+              </CardContent>
+              
+              {/* Floating Sparkles */}
+              <div className="absolute top-8 left-8 w-3 h-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-float opacity-60 group-hover:opacity-100"></div>
+              <div className="absolute bottom-8 right-8 w-2 h-2 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full animate-bounce-slow opacity-50 group-hover:opacity-80"></div>
+            </Card>
+          ))}
         </div>
-      </section>
 
-      {/* Call to Action */}
-      <section className="py-16 bg-blue-600">
-        <div className="container mx-auto px-4 text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">Ready to Schedule an Appointment?</h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Choose from our experienced medical professionals and book your appointment today.
-          </p>
-          <Button asChild className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3">
-            <Link to="/appointments">Book Appointment</Link>
-          </Button>
+        {/* CTA Section with Pulsing Animation */}
+        <div className="mt-20 text-center animate-fade-slide-up" style={{ animationDelay: '0.8s' }}>
+          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-12 text-white relative overflow-hidden shadow-2xl">
+            <div className="absolute inset-0 bg-black/10 backdrop-blur-xl"></div>
+            <div className="relative z-10">
+              <h2 className="text-4xl font-bold mb-6 animate-pulse-gentle">Ready to Schedule Your Appointment?</h2>
+              <p className="text-xl mb-8 text-blue-100">Our medical team is here to provide you with the best healthcare experience.</p>
+              <Button className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110 animate-heartbeat">
+                <Calendar className="h-6 w-6 mr-3" />
+                Book Your Appointment Now
+              </Button>
+            </div>
+            
+            {/* Floating Elements */}
+            <div className="absolute top-6 right-24 w-6 h-6 bg-white/20 rounded-full animate-float"></div>
+            <div className="absolute bottom-8 left-24 w-4 h-4 bg-white/20 rounded-full animate-bounce-slow"></div>
+            <div className="absolute top-1/3 right-12 w-8 h-8 bg-white/10 rounded-full animate-pulse"></div>
+          </div>
         </div>
-      </section>
+      </div>
 
       <Footer />
     </div>
