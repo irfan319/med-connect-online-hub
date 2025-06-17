@@ -26,21 +26,14 @@ import {
   Video,
   Star,
   Activity,
-  Brain,
-  HeartHandshake,
-  Zap,
-  Award,
-  Target,
   Shield,
-  Sparkles,
+  Award,
   Search,
   Pill,
   Calendar as CalendarIcon,
   AlertTriangle,
   Mic,
-  MicOff,
-  VideoOff,
-  PhoneCall
+  MicOff
 } from 'lucide-react';
 
 const DoctorDashboard = () => {
@@ -95,7 +88,6 @@ const DoctorDashboard = () => {
       change: '+2', 
       icon: Users, 
       color: 'from-emerald-500 to-teal-600',
-      bgColor: 'from-emerald-50 to-teal-100',
       description: 'Scheduled for today'
     },
     { 
@@ -104,7 +96,6 @@ const DoctorDashboard = () => {
       change: '+3', 
       icon: UserCheck, 
       color: 'from-blue-500 to-indigo-600',
-      bgColor: 'from-blue-50 to-indigo-100',
       description: 'Consultations done'
     },
     { 
@@ -113,7 +104,6 @@ const DoctorDashboard = () => {
       change: '-1', 
       icon: ClipboardList, 
       color: 'from-orange-500 to-red-600',
-      bgColor: 'from-orange-50 to-red-100',
       description: 'Lab results to review'
     },
     { 
@@ -122,7 +112,6 @@ const DoctorDashboard = () => {
       change: '+12', 
       icon: TrendingUp, 
       color: 'from-purple-500 to-pink-600',
-      bgColor: 'from-purple-50 to-pink-100',
       description: 'Total appointments'
     }
   ];
@@ -494,28 +483,30 @@ const DoctorDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/30">
       <Navigation />
       
-      <div className="container mx-auto px-4 py-8">
-        {/* Enhanced Professional Header with Dark Theme and More Animations */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-slate-800 via-emerald-800 to-teal-800 rounded-3xl p-8 text-white mb-8 animate-fade-in shadow-2xl">
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-xl"></div>
+      <div className="container mx-auto px-4 py-6 max-w-7xl">
+        {/* Enhanced Professional Header */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-slate-800 via-emerald-800 to-teal-800 rounded-2xl p-8 text-white mb-8 shadow-xl">
+          <div className="absolute inset-0 bg-black/10 backdrop-blur-sm"></div>
           <div className="relative z-10">
             <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-4xl font-bold mb-2 animate-slide-in-bottom">Good morning, {user?.name}!</h1>
-                <p className="text-emerald-100 text-lg mb-4 animate-fade-slide-up" style={{ animationDelay: '0.2s' }}>Empowering lives through exceptional medical care</p>
-                <div className="flex items-center gap-4 animate-scale-in" style={{ animationDelay: '0.4s' }}>
-                  <Badge className="bg-white/20 text-white border-0 px-4 py-2 text-sm backdrop-blur-sm animate-pulse-gentle">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <h1 className="text-3xl font-bold tracking-tight">
+                    Good morning, {user?.name || 'Doctor'}
+                  </h1>
+                  <p className="text-emerald-100 text-lg font-medium">
+                    Empowering lives through exceptional medical care
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Badge className="bg-white/20 text-white border-0 px-3 py-1 text-sm font-medium backdrop-blur-sm">
                     <Star className="w-4 h-4 mr-2" />
                     Rating: 4.9/5
                   </Badge>
-                  <Badge className="bg-white/20 text-white border-0 px-4 py-2 text-sm backdrop-blur-sm animate-heartbeat">
-                    <HeartHandshake className="w-4 h-4 mr-2" />
-                    1,247 Lives Touched
-                  </Badge>
-                  <Badge className="bg-white/20 text-white border-0 px-4 py-2 text-sm backdrop-blur-sm animate-sparkle">
+                  <Badge className="bg-white/20 text-white border-0 px-3 py-1 text-sm font-medium backdrop-blur-sm">
                     <Award className="w-4 h-4 mr-2" />
                     Excellence Award 2024
                   </Badge>
@@ -523,167 +514,130 @@ const DoctorDashboard = () => {
               </div>
               <div className="hidden md:block">
                 <div className="relative">
-                  <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center animate-pulse-gentle backdrop-blur-sm transform hover:scale-110 transition-transform duration-500">
-                    <Stethoscope className="h-16 w-16 text-white/80 animate-float" />
+                  <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <Stethoscope className="h-12 w-12 text-white/80" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center animate-heartbeat shadow-lg">
-                    <Shield className="text-white w-5 h-5" />
-                  </div>
-                  <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-gradient-to-br from-blue-400 to-teal-500 rounded-full flex items-center justify-center animate-bounce-slow shadow-lg">
-                    <Sparkles className="text-white w-4 h-4" />
+                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                    <Shield className="text-white w-3 h-3" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          
-          {/* Enhanced Floating Medical Elements */}
-          <div className="absolute top-6 right-24 w-6 h-6 bg-emerald-400/30 rounded-full animate-float"></div>
-          <div className="absolute bottom-8 left-24 w-4 h-4 bg-teal-400/30 rounded-full animate-bounce-slow"></div>
-          <div className="absolute top-1/3 right-12 w-8 h-8 bg-white/10 rounded-full animate-pulse"></div>
-          <div className="absolute top-12 left-1/3 w-3 h-3 bg-yellow-300/30 rounded-full animate-sparkle" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-12 right-1/4 w-5 h-5 bg-pink-300/30 rounded-full animate-morph" style={{ animationDelay: '2s' }}></div>
         </div>
 
-        {/* Enhanced Stats Cards with Advanced Neumorphism */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        {/* Enhanced Stats Cards */}
+        <div className="grid md:grid-cols-4 gap-4 mb-8">
           {stats.map((stat, index) => (
-            <Card key={index} className="relative overflow-hidden border-0 shadow-2xl bg-white/90 backdrop-blur-lg hover:shadow-3xl transition-all duration-500 animate-scale-in group transform hover:rotate-1 hover:scale-105" style={{ animationDelay: `${index * 0.1}s` }}>
+            <Card key={index} className="border-0 shadow-lg bg-white hover:shadow-xl transition-all duration-300">
               <CardContent className="p-6">
-                <div className={`absolute inset-0 bg-gradient-to-br ${stat.bgColor} opacity-40 group-hover:opacity-60 transition-opacity duration-500`}></div>
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`p-4 rounded-2xl bg-gradient-to-r ${stat.color} shadow-xl group-hover:scale-110 transition-transform duration-300`}>
-                      <stat.icon className="h-7 w-7 text-white animate-pulse-gentle" />
-                    </div>
-                    <div className="text-right">
-                      <p className="text-4xl font-bold text-gray-800 mb-1 animate-number-count">{stat.value}</p>
-                      <p className="text-emerald-600 text-sm font-semibold animate-fade-in">{stat.change}</p>
-                    </div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`p-3 rounded-xl bg-gradient-to-r ${stat.color}`}>
+                    <stat.icon className="h-6 w-6 text-white" />
                   </div>
-                  <div>
-                    <p className="font-bold text-gray-800 mb-1 text-lg">{stat.label}</p>
-                    <p className="text-gray-600 text-sm">{stat.description}</p>
+                  <div className="text-right">
+                    <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
+                    <p className="text-emerald-600 text-sm font-semibold">{stat.change}</p>
                   </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+                <div>
+                  <p className="font-semibold text-gray-900 mb-1">{stat.label}</p>
+                  <p className="text-gray-600 text-sm">{stat.description}</p>
+                </div>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="grid lg:grid-cols-4 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-3">
             <Tabs defaultValue="appointments" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-3 bg-white/90 backdrop-blur-lg shadow-xl border-0 p-2 rounded-2xl">
-                <TabsTrigger value="appointments" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-500 data-[state=active]:to-teal-500 data-[state=active]:text-white rounded-xl transition-all duration-300 data-[state=active]:shadow-lg">
+              <TabsList className="grid w-full grid-cols-3 bg-white shadow-md border-0 p-1 rounded-xl">
+                <TabsTrigger value="appointments" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg transition-all duration-300">
                   Today's Schedule
                 </TabsTrigger>
-                <TabsTrigger value="patients" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-indigo-500 data-[state=active]:text-white rounded-xl transition-all duration-300 data-[state=active]:shadow-lg">
+                <TabsTrigger value="patients" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-lg transition-all duration-300">
                   Patients
                 </TabsTrigger>
-                <TabsTrigger value="tasks" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-xl transition-all duration-300 data-[state=active]:shadow-lg">
+                <TabsTrigger value="tasks" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white rounded-lg transition-all duration-300">
                   Tasks
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="appointments" className="animate-fade-slide-up">
-                <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-lg">
+              <TabsContent value="appointments">
+                <Card className="border-0 shadow-lg bg-white">
                   <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle className="flex items-center gap-2 text-2xl text-gray-800">
-                      <Calendar className="h-7 w-7 text-emerald-500 animate-pulse" />
+                    <CardTitle className="flex items-center gap-2 text-xl text-gray-900">
+                      <Calendar className="h-6 w-6 text-emerald-600" />
                       Today's Appointments
                     </CardTitle>
-                    <Button className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <Button className="bg-emerald-600 hover:bg-emerald-700">
                       <Calendar className="h-4 w-4 mr-2" />
                       Add Appointment
                     </Button>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                       {todaysAppointments.map((appointment, index) => (
-                        <div key={appointment.id} className="relative overflow-hidden p-6 rounded-2xl bg-gradient-to-r from-white via-emerald-50 to-teal-50 border border-emerald-100 hover:border-emerald-300 transition-all duration-500 animate-fade-in group shadow-lg hover:shadow-xl transform hover:scale-[1.02]" style={{ animationDelay: `${index * 0.1}s` }}>
-                          <div className="flex items-center gap-6">
-                            <div className="relative">
-                              <div className="relative">
-                                <img
-                                  src={appointment.avatar}
-                                  alt={appointment.patient}
-                                  className="w-18 h-18 rounded-full object-cover shadow-xl ring-4 ring-white animate-pulse-gentle"
-                                />
-                                {appointment.priority === 'high' && (
-                                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-pulse shadow-lg">
-                                    <span className="text-white text-xs font-bold">!</span>
-                                  </div>
-                                )}
+                        <div key={appointment.id} className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-white to-emerald-50 border border-emerald-100 shadow-sm">
+                          <div className="relative">
+                            <img
+                              src={appointment.avatar}
+                              alt={appointment.patient}
+                              className="w-14 h-14 rounded-full object-cover shadow-md"
+                            />
+                            {appointment.priority === 'high' && (
+                              <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                                <span className="text-white text-xs font-bold">!</span>
                               </div>
-                              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg animate-heartbeat">
-                                <span className="text-white text-xs font-bold">✓</span>
-                              </div>
-                            </div>
-                            
-                            <div className="flex-1">
-                              <div className="flex items-start justify-between mb-3">
-                                <div>
-                                  <h4 className="font-bold text-gray-800 text-xl mb-1">{appointment.patient}</h4>
-                                  <p className="text-emerald-600 font-semibold text-lg">{appointment.condition}</p>
-                                </div>
-                                <Badge className={`${
-                                  appointment.status === 'confirmed' ? 'bg-emerald-100 text-emerald-800' :
-                                  appointment.status === 'in-progress' ? 'bg-blue-100 text-blue-800' :
-                                  'bg-amber-100 text-amber-800'
-                                } border-0 shadow-sm animate-pulse-gentle`}>
-                                  {appointment.status}
-                                </Badge>
-                              </div>
-                              
-                              <div className="flex items-center gap-8 text-sm text-gray-600 mb-4">
-                                <div className="flex items-center gap-2">
-                                  <Clock className="h-5 w-5" />
-                                  <span className="font-medium">{appointment.time}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Activity className="h-5 w-5" />
-                                  <span className="font-medium">{appointment.duration}</span>
-                                </div>
-                                <Badge variant="outline" className="text-xs border-emerald-200 text-emerald-700">
-                                  {appointment.type}
-                                </Badge>
-                              </div>
-                              
-                              <div className="flex gap-3 flex-wrap">
-                                <Button 
-                                  onClick={() => handleStartCall(appointment.meetingId, appointment.patient)} 
-                                  size="sm" 
-                                  className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-                                >
-                                  <Video className="h-4 w-4 mr-2" />
-                                  Start Call
-                                </Button>
-                                <Button 
-                                  onClick={handleToggleRecording}
-                                  size="sm" 
-                                  variant="outline" 
-                                  className={`border-red-200 ${isRecording ? 'bg-red-50 text-red-600' : 'text-red-600'} hover:bg-red-50 shadow-md transition-all duration-300 transform hover:scale-105`}
-                                >
-                                  {isRecording ? <MicOff className="h-4 w-4 mr-2" /> : <Mic className="h-4 w-4 mr-2" />}
-                                  {isRecording ? 'Stop Recording' : 'Record'}
-                                </Button>
-                                <Button size="sm" variant="outline" className="border-teal-200 text-teal-600 hover:bg-teal-50 shadow-md transform hover:scale-105 transition-all duration-300">
-                                  <Phone className="h-4 w-4 mr-2" />
-                                  Call
-                                </Button>
-                                <Button size="sm" variant="outline" className="border-blue-200 text-blue-600 hover:bg-blue-50 shadow-md transform hover:scale-105 transition-all duration-300">
-                                  <FileText className="h-4 w-4 mr-2" />
-                                  Records
-                                </Button>
-                              </div>
-                            </div>
+                            )}
                           </div>
                           
-                          {/* Enhanced gradient overlay on hover */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-teal-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between mb-2">
+                              <div>
+                                <h4 className="font-semibold text-gray-900 text-lg">{appointment.patient}</h4>
+                                <p className="text-emerald-600 font-medium">{appointment.condition}</p>
+                              </div>
+                              <Badge className={`${
+                                appointment.status === 'confirmed' ? 'bg-emerald-100 text-emerald-800' :
+                                appointment.status === 'in-progress' ? 'bg-blue-100 text-blue-800' :
+                                'bg-amber-100 text-amber-800'
+                              } border-0`}>
+                                {appointment.status}
+                              </Badge>
+                            </div>
+                            
+                            <div className="flex items-center gap-6 text-sm text-gray-600 mb-3">
+                              <div className="flex items-center gap-1">
+                                <Clock className="h-4 w-4" />
+                                <span>{appointment.time}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Activity className="h-4 w-4" />
+                                <span>{appointment.duration}</span>
+                              </div>
+                              <Badge variant="outline" className="text-xs border-emerald-200 text-emerald-700">
+                                {appointment.type}
+                              </Badge>
+                            </div>
+                            
+                            <div className="flex gap-2">
+                              <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                                <Video className="h-4 w-4 mr-2" />
+                                Start Call
+                              </Button>
+                              <Button size="sm" variant="outline" className="border-red-200 text-red-600 hover:bg-red-50">
+                                {isRecording ? <MicOff className="h-4 w-4 mr-2" /> : <Mic className="h-4 w-4 mr-2" />}
+                                {isRecording ? 'Stop Recording' : 'Record'}
+                              </Button>
+                              <Button size="sm" variant="outline" className="border-blue-200 text-blue-600 hover:bg-blue-50">
+                                <FileText className="h-4 w-4 mr-2" />
+                                Records
+                              </Button>
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -691,47 +645,36 @@ const DoctorDashboard = () => {
                 </Card>
               </TabsContent>
 
-              {/* Enhanced other tab contents */}
-              <TabsContent value="patients" className="animate-fade-slide-up">
-                <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-lg">
+              <TabsContent value="patients">
+                <Card className="border-0 shadow-lg bg-white">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-2xl text-gray-800">
-                      <Users className="h-7 w-7 text-blue-500 animate-pulse" />
+                    <CardTitle className="flex items-center gap-2 text-xl text-gray-900">
+                      <Users className="h-6 w-6 text-blue-600" />
                       Patient Management
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-center py-16">
-                      <div className="relative inline-block">
-                        <Brain className="h-20 w-20 mx-auto text-gray-400 mb-6 animate-float" />
-                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center animate-pulse">
-                          <Sparkles className="h-4 w-4 text-white" />
-                        </div>
-                      </div>
-                      <h3 className="text-xl font-semibold text-gray-700 mb-2">Advanced Patient System</h3>
+                    <div className="text-center py-12">
+                      <Users className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                      <h3 className="text-lg font-semibold text-gray-700 mb-2">Advanced Patient System</h3>
                       <p className="text-gray-600">Comprehensive patient management tools coming soon...</p>
                     </div>
                   </CardContent>
                 </Card>
               </TabsContent>
 
-              <TabsContent value="tasks" className="animate-fade-slide-up">
-                <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-lg">
+              <TabsContent value="tasks">
+                <Card className="border-0 shadow-lg bg-white">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-2xl text-gray-800">
-                      <ClipboardList className="h-7 w-7 text-purple-500 animate-pulse" />
+                    <CardTitle className="flex items-center gap-2 text-xl text-gray-900">
+                      <ClipboardList className="h-6 w-6 text-purple-600" />
                       Task Management
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-center py-16">
-                      <div className="relative inline-block">
-                        <Target className="h-20 w-20 mx-auto text-gray-400 mb-6 animate-float" />
-                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center animate-pulse">
-                          <Zap className="h-4 w-4 text-white" />
-                        </div>
-                      </div>
-                      <h3 className="text-xl font-semibold text-gray-700 mb-2">Smart Task Engine</h3>
+                    <div className="text-center py-12">
+                      <ClipboardList className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                      <h3 className="text-lg font-semibold text-gray-700 mb-2">Smart Task Engine</h3>
                       <p className="text-gray-600">Intelligent task prioritization system coming soon...</p>
                     </div>
                   </CardContent>
@@ -740,56 +683,62 @@ const DoctorDashboard = () => {
             </Tabs>
           </div>
 
-          {/* Enhanced Sidebar with Functional Tools */}
-          <div className="space-y-8">
-            {/* Enhanced Real-time Notifications */}
-            <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-lg animate-fade-slide-up" style={{ animationDelay: '0.3s' }}>
+          {/* Enhanced Sidebar */}
+          <div className="space-y-6">
+            {/* Real-time Notifications */}
+            <Card className="border-0 shadow-lg bg-white">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Bell className="h-6 w-6 text-red-500 animate-pulse" />
+                  <Bell className="h-5 w-5 text-red-500" />
                   Live Notifications
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {notifications.map((notification, index) => (
-                    <div key={notification.id} className={`p-4 rounded-xl transition-all duration-300 hover:shadow-lg animate-fade-in transform hover:scale-105 ${
-                      notification.color === 'red' ? 'bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-500' :
-                      notification.color === 'blue' ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500' :
-                      'bg-gradient-to-r from-emerald-50 to-green-50 border-l-4 border-emerald-500'
-                    }`} style={{ animationDelay: `${index * 0.1}s` }}>
-                      <p className={`text-sm font-semibold ${
+                    <div key={notification.id} className={`p-3 rounded-lg border-l-4 ${
+                      notification.color === 'red' ? 'bg-red-50 border-red-500' :
+                      notification.color === 'blue' ? 'bg-blue-50 border-blue-500' :
+                      'bg-emerald-50 border-emerald-500'
+                    }`}>
+                      <p className={`text-sm font-medium ${
                         notification.color === 'red' ? 'text-red-800' :
                         notification.color === 'blue' ? 'text-blue-800' :
                         'text-emerald-800'
                       }`}>
                         {notification.title}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1 font-medium">{notification.time}</p>
+                      <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
                     </div>
                   ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Enhanced Quick Access Tools with Functional Dialogs */}
-            <Card className="border-0 shadow-2xl bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 animate-fade-slide-up" style={{ animationDelay: '0.4s' }}>
+            {/* Quick Medical Tools */}
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-slate-50 to-emerald-50">
               <CardHeader>
                 <CardTitle className="text-slate-700 flex items-center gap-2">
-                  <Zap className="h-6 w-6 animate-pulse" />
+                  <Stethoscope className="h-5 w-5" />
                   Quick Medical Tools
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <PatientSearchDialog />
-                  <PrescriptionDialog />
-                  <SurgeryScheduleDialog />
-                  <Button 
-                    onClick={handleEmergencyContact}
-                    className="w-full justify-start hover:bg-red-50 text-red-600 hover:text-red-700 transition-all duration-300 animate-fade-in p-4 rounded-xl transform hover:scale-105 shadow-sm hover:shadow-md bg-gradient-to-r from-red-50 to-pink-50 border border-red-200"
-                  >
-                    <AlertTriangle className="h-5 w-5 mr-3 animate-pulse" />
+                  <Button className="w-full justify-start hover:bg-white/80 p-3 rounded-xl">
+                    <Search className="h-4 w-4 mr-3 text-emerald-600" />
+                    <span className="font-medium">Patient Search</span>
+                  </Button>
+                  <Button className="w-full justify-start hover:bg-white/80 p-3 rounded-xl">
+                    <Pill className="h-4 w-4 mr-3 text-blue-600" />
+                    <span className="font-medium">Write Prescription</span>
+                  </Button>
+                  <Button className="w-full justify-start hover:bg-white/80 p-3 rounded-xl">
+                    <CalendarIcon className="h-4 w-4 mr-3 text-purple-600" />
+                    <span className="font-medium">Schedule Surgery</span>
+                  </Button>
+                  <Button className="w-full justify-start hover:bg-red-50 text-red-600 hover:text-red-700 p-3 rounded-xl bg-red-50 border border-red-200">
+                    <AlertTriangle className="h-4 w-4 mr-3" />
                     <span className="font-medium">Emergency Contact</span>
                   </Button>
                 </div>

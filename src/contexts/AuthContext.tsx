@@ -33,6 +33,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Enhanced mock user database with realistic names
+  const mockUsers = {
+    patient: {
+      'john.doe@email.com': { name: 'John Doe', id: 'p1' },
+      '+1234567890': { name: 'John Doe', id: 'p1' },
+      'jane.smith@email.com': { name: 'Jane Smith', id: 'p2' },
+      '+0987654321': { name: 'Jane Smith', id: 'p2' },
+      'michael.brown@email.com': { name: 'Michael Brown', id: 'p3' },
+      '+1122334455': { name: 'Michael Brown', id: 'p3' },
+      'sarah.wilson@email.com': { name: 'Sarah Wilson', id: 'p4' },
+      '+5566778899': { name: 'Sarah Wilson', id: 'p4' },
+    },
+    doctor: {
+      'dr.sarah@hospital.com': { name: 'Dr. Sarah Johnson', id: 'd1' },
+      '+1122334455': { name: 'Dr. Sarah Johnson', id: 'd1' },
+      'dr.michael@hospital.com': { name: 'Dr. Michael Chen', id: 'd2' },
+      '+5566778899': { name: 'Dr. Michael Chen', id: 'd2' },
+      'dr.emily@hospital.com': { name: 'Dr. Emily Rodriguez', id: 'd3' },
+      '+9988776655': { name: 'Dr. Emily Rodriguez', id: 'd3' },
+      'dr.david@hospital.com': { name: 'Dr. David Kim', id: 'd4' },
+      '+7788990011': { name: 'Dr. David Kim', id: 'd4' },
+    }
+  };
+
   useEffect(() => {
     // Check for stored user data on app load
     const storedUser = localStorage.getItem('hospital_user');
@@ -48,13 +72,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Mock authentication - in real app, this would hit your backend
+    // Get user data from mock database
+    const userRole = role as 'patient' | 'doctor';
+    const userData = mockUsers[userRole][email];
+    
+    if (userData) {
+      const mockUser: User = {
+        id: userData.id,
+        name: userData.name,
+        email,
+        role: userRole,
+        profileImage: userRole === 'doctor' ? '/api/placeholder/150/150' : undefined
+      };
+      
+      setUser(mockUser);
+      localStorage.setItem('hospital_user', JSON.stringify(mockUser));
+      setIsLoading(false);
+      return true;
+    }
+    
+    // Fallback for unknown users
     const mockUser: User = {
-      id: '1',
-      name: role === 'doctor' ? 'Dr. Sarah Johnson' : 'John Smith',
+      id: Date.now().toString(),
+      name: 'Unknown User',
       email,
-      role: role as 'patient' | 'doctor',
-      profileImage: role === 'doctor' ? '/api/placeholder/150/150' : undefined
+      role: userRole,
     };
     
     setUser(mockUser);

@@ -25,19 +25,27 @@ const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Mock user data for demonstration
+  // Enhanced mock user data with more realistic names
   const mockUsers = {
     patient: {
       'john.doe@email.com': 'John Doe',
       '+1234567890': 'John Doe',
       'jane.smith@email.com': 'Jane Smith',
       '+0987654321': 'Jane Smith',
+      'michael.brown@email.com': 'Michael Brown',
+      '+1122334455': 'Michael Brown',
+      'sarah.wilson@email.com': 'Sarah Wilson',
+      '+5566778899': 'Sarah Wilson',
     },
     doctor: {
       'dr.sarah@hospital.com': 'Dr. Sarah Johnson',
       '+1122334455': 'Dr. Sarah Johnson',
       'dr.michael@hospital.com': 'Dr. Michael Chen',
       '+5566778899': 'Dr. Michael Chen',
+      'dr.emily@hospital.com': 'Dr. Emily Rodriguez',
+      '+9988776655': 'Dr. Emily Rodriguez',
+      'dr.david@hospital.com': 'Dr. David Kim',
+      '+7788990011': 'Dr. David Kim',
     }
   };
 
@@ -89,7 +97,7 @@ const Login = () => {
       if (success) {
         toast({
           title: "Login Successful",
-          description: `Welcome back, ${displayName}!`,
+          description: `Welcome back, ${displayName || 'User'}!`,
         });
         // Navigate to appropriate dashboard based on role
         if (selectedRole === 'patient') {
