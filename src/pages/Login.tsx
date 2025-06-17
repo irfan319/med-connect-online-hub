@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,13 +19,49 @@ const Login = () => {
   const [otp, setOtp] = useState('');
   const [showOtpInput, setShowOtpInput] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [displayName, setDisplayName] = useState('');
   
   const { login } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Mock user data for demonstration
+  const mockUsers = {
+    patient: {
+      'john.doe@email.com': 'John Doe',
+      '+1234567890': 'John Doe',
+      'jane.smith@email.com': 'Jane Smith',
+      '+0987654321': 'Jane Smith',
+    },
+    doctor: {
+      'dr.sarah@hospital.com': 'Dr. Sarah Johnson',
+      '+1122334455': 'Dr. Sarah Johnson',
+      'dr.michael@hospital.com': 'Dr. Michael Chen',
+      '+5566778899': 'Dr. Michael Chen',
+    }
+  };
+
+  // Update display name based on email/phone input
+  useEffect(() => {
+    if (!selectedRole) return;
+    
+    const identifier = loginMethod === 'email' ? email : phone;
+    if (identifier) {
+      const userName = mockUsers[selectedRole][identifier];
+      setDisplayName(userName || '');
+    } else {
+      setDisplayName('');
+    }
+  }, [email, phone, selectedRole, loginMethod]);
+
   const handleRoleSelect = (role: 'patient' | 'doctor') => {
     setSelectedRole(role);
+    setDisplayName('');
+    setEmail('');
+    setPhone('');
+    setPassword('');
+    setOtp('');
+    setShowOtpInput(false);
   };
 
   const handleSendOtp = async () => {
@@ -53,7 +89,7 @@ const Login = () => {
       if (success) {
         toast({
           title: "Login Successful",
-          description: `Welcome back to MediCare Plus!`,
+          description: `Welcome back, ${displayName}!`,
         });
         // Navigate to appropriate dashboard based on role
         if (selectedRole === 'patient') {
@@ -199,6 +235,32 @@ const Login = () => {
             </div>
             <CardTitle className="text-2xl text-gray-800 mb-2">Welcome Back</CardTitle>
             <p className="text-gray-600 text-sm">Please enter your credentials to continue</p>
+            
+            {/* Username Display Section */}
+            {displayName && (
+              <div className={`mt-4 p-3 rounded-lg border-l-4 bg-gradient-to-r from-gray-50 to-gray-100 animate-fade-in ${
+                selectedRole === 'patient' ? 'border-blue-500' : 'border-green-500'
+              }`}>
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-full ${
+                    selectedRole === 'patient' ? 'bg-blue-100' : 'bg-green-100'
+                  }`}>
+                    {selectedRole === 'patient' ? 
+                      <User className={`w-4 h-4 ${selectedRole === 'patient' ? 'text-blue-600' : 'text-green-600'}`} /> : 
+                      <Stethoscope className={`w-4 h-4 ${selectedRole === 'patient' ? 'text-blue-600' : 'text-green-600'}`} />
+                    }
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs text-gray-500 font-medium">Welcome</p>
+                    <p className={`font-semibold text-sm ${
+                      selectedRole === 'patient' ? 'text-blue-700' : 'text-green-700'
+                    }`}>
+                      {displayName}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
             
             {/* Role Switch Button */}
             <button
