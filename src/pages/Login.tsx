@@ -246,8 +246,8 @@ const Login = () => {
                     selectedRole === 'patient' ? 'bg-blue-100' : 'bg-green-100'
                   }`}>
                     {selectedRole === 'patient' ? 
-                      <User className={`w-4 h-4 ${selectedRole === 'patient' ? 'text-blue-600' : 'text-green-600'}`} /> : 
-                      <Stethoscope className={`w-4 h-4 ${selectedRole === 'patient' ? 'text-blue-600' : 'text-green-600'}`} />
+                      <User className="w-4 h-4 text-blue-600" /> : 
+                      <Stethoscope className="w-4 h-4 text-green-600" />
                     }
                   </div>
                   <div className="text-left">
