@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,19 +38,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -89,6 +83,94 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Theme-specific accent colors */
+  .accent-blue {
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+  }
+
+  .accent-purple {
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+  }
+
+  .accent-emerald {
+    --primary: 160 84.1% 39.4%;
+    --primary-foreground: 220 14.3% 95.9%;
+  }
+
+  .accent-rose {
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+  }
+
+  .accent-amber {
+    --primary: 32.1 94.6% 43.7%;
+    --primary-foreground: 26 83.3% 14.1%;
+  }
+
+  .accent-cyan {
+    --primary: 188.7 85.7% 53.3%;
+    --primary-foreground: 210 20% 98%;
+  }
+
+  .accent-violet {
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+  }
+
+  .accent-lime {
+    --primary: 82.7 78% 55.5%;
+    --primary-foreground: 240 10% 3.9%;
+  }
+
+  /* UI Styles */
+  .ui-glassmorphism {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .ui-glassmorphism .bg-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .ui-neumorphism .bg-card {
+    background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  }
+
+  .ui-brutalist * {
+    border-radius: 0 !important;
+    box-shadow: 4px 4px 0px #000000 !important;
+  }
+
+  /* Border radius variations */
+  .radius-none * {
+    border-radius: 0px !important;
+  }
+
+  .radius-small * {
+    border-radius: 4px !important;
+  }
+
+  .radius-medium * {
+    border-radius: 8px !important;
+  }
+
+  .radius-large * {
+    border-radius: 16px !important;
+  }
+
+  .radius-full * {
+    border-radius: 9999px !important;
+  }
+
+  /* Font families */
+  .font-inter {
+    font-family: 'Inter', sans-serif;
   }
 }
 
