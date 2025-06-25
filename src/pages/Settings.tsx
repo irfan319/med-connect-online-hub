@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -10,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { useTheme } from '@/contexts/ThemeContext';
-import { Palette, Monitor, Sun, Moon, Sparkles, Layout, Type, Rounded } from 'lucide-react';
+import { Palette, Monitor, Sun, Moon, Sparkles, Layout, Type, CornerDownRight } from 'lucide-react';
 
 const Settings = () => {
   const {
@@ -175,7 +174,7 @@ const Settings = () => {
           <Card className="border-0 shadow-xl">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Rounded className="h-5 w-5" />
+                <CornerDownRight className="h-5 w-5" />
                 Corner Style
               </CardTitle>
             </CardHeader>
